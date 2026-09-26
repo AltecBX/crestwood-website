@@ -881,6 +881,7 @@ body.lock{overflow:hidden}
 .t3-seg button,.t3-ic{border:0;background:transparent;color:var(--on-dark);font:500 13.5px/1 var(--body);padding:10px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:background .3s,color .3s}
 .t3-seg button[aria-pressed="true"]{background:rgba(255,255,255,.92);color:var(--ink)}
 .t3-ic{width:44px;height:44px;padding:0;display:grid;place-items:center}
+#t3Reset{width:auto;display:inline-flex;align-items:center;gap:7px;padding:0 14px 0 12px}
 .t3-ic:hover{background:rgba(255,255,255,.1)}
 .t3-ic svg{width:18px;height:18px}
 .t3-cap{position:absolute;left:var(--gutter);bottom:calc(150px + env(safe-area-inset-bottom));z-index:4;width:min(380px,calc(100vw - 2*var(--gutter)));border-radius:22px;padding:18px 18px 16px;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease);pointer-events:none}
@@ -938,6 +939,10 @@ body.lock{overflow:hidden}
   .t3-play{flex:1;justify-content:center;padding:14px 12px}
   .t3-seg button{padding:10px 11px}
   .t3-ic{width:42px;height:42px}
+  #t3Reset{width:42px;padding:0;justify-content:center}#t3Reset span{display:none}
+  .t3-seg button{padding:10px 8px;font-size:13px}
+  .t3-play{gap:8px;font-size:14.5px;padding:14px 10px}
+  html[lang="es"] .t3-seg button[data-v="top"]{font-size:0}html[lang="es"] .t3-seg button[data-v="top"]::after{content:"Planta";font-size:13px}
   .t3-cap{bottom:calc(128px + env(safe-area-inset-bottom));padding:14px 14px 13px;border-radius:18px}
   .t3-cap h4{font-size:24px}
   .t3-note{left:var(--gutter);right:auto;top:calc(92px + env(safe-area-inset-top));bottom:auto;text-align:left;max-width:60vw;font-size:10.5px}
@@ -962,7 +967,10 @@ body.lock{overflow:hidden}
 .t3:focus{outline:none}
 #moveBy{max-width:100%;min-width:0}
 .pets .tx,.pets .ph{min-width:0}
-@media (max-width:480px){.btn{white-space:normal;text-align:center;line-height:1.25}.nav .lang{min-height:38px;min-width:42px;justify-content:center}}
+@media (max-width:480px){.pets .btn{white-space:normal;text-align:center;line-height:1.25}.nav .lang{min-height:38px;min-width:42px;justify-content:center}}
+.mbar .btn{min-width:0}
+html[lang="es"] .mbar .btn:not(.call){padding-inline:10px;font-size:14px}
+html[lang="es"] .mbar .btn.line:not(.call){flex:.75}
 </style>
 
 <div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
@@ -1158,7 +1166,7 @@ body.lock{overflow:hidden}
 <dialog id="dlg" aria-labelledby="dlgTitle">
   <button class="close" id="dlgClose" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
   <div class="dlg">
-    <div class="zoom" id="zoom"><button class="t3open" type="button" id="dlgT3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.8l8 4.6v9.2l-8 4.6-8-4.6V7.4z"/><path d="M4 7.4l8 4.6 8-4.6M12 12v9.2"/></svg><span>Explore in 3D</span></button><img id="dlgImg" alt=""><span class="hint">Tap to zoom</span></div>
+    <div class="zoom" id="zoom"><button class="t3open" type="button" id="dlgT3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.8l8 4.6v9.2l-8 4.6-8-4.6V7.4z"/><path d="M4 7.4l8 4.6 8-4.6M12 12v9.2"/></svg><span>Explore this floor plan in 3D</span></button><img id="dlgImg" alt=""><span class="hint">Tap to zoom</span></div>
     <div class="info">
       <div><span class="label" id="dlgCode"></span><h3 id="dlgTitle"></h3><p id="dlgSub" style="color:var(--muted);margin-top:8px"></p></div>
       <div class="pr"><span class="label" id="dlgPriceLbl">Monthly rent</span><b id="dlgPrice" class="num"></b></div>
@@ -1450,8 +1458,8 @@ body.lock{overflow:hidden}
   <div class="t3-grain"></div>
   <div class="t3-tags" id="t3Tags"></div>
   <div class="t3-top">
-    <div class="t3-ttl"><span class="k"><i></i><span id="t3Code">Plan</span><span>3D tour</span></span><h3 id="t3Title"></h3><p id="t3Sub"></p></div>
-    <button class="t3-x" id="t3Close" type="button" aria-label="Close 3D tour"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <div class="t3-ttl"><span class="k"><i></i><span id="t3Code">Plan</span><span>3D floor plan</span></span><h3 id="t3Title"></h3><p id="t3Sub"></p></div>
+    <button class="t3-x" id="t3Close" type="button" aria-label="Close 3D floor plan"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
   </div>
   <div class="t3-cap t3-glass" id="t3Cap" aria-live="polite">
     <span class="n" id="t3Step"></span>
@@ -1472,8 +1480,8 @@ body.lock{overflow:hidden}
     <div class="t3-rooms" id="t3Rooms" role="group" aria-label="Rooms"></div>
     <div class="t3-dock t3-glass">
       <button class="t3-play" type="button" id="t3Play"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9.5-5.5z"/></svg><span>Play walkthrough</span></button>
-      <div class="t3-seg" role="group" aria-label="View"><button type="button" data-v="3d" aria-pressed="true">3D</button><button type="button" data-v="top" aria-pressed="false">Top</button></div>
-      <button class="t3-ic" type="button" id="t3Reset" aria-label="Reset view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 109-9 9.5 9.5 0 00-6.7 2.8L3 8"/><path d="M3 3v5h5"/></svg></button>
+      <div class="t3-seg" role="group" aria-label="View"><button type="button" data-v="3d" aria-pressed="true">3D view</button><button type="button" data-v="top" aria-pressed="false">Top view</button></div>
+      <button class="t3-ic" type="button" id="t3Reset" aria-label="Reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 109-9 9.5 9.5 0 00-6.7 2.8L3 8"/><path d="M3 3v5h5"/></svg><span>Reset</span></button>
     </div>
   </div>
   <div class="t3-load" id="t3Load"><div><div class="ring"></div><b>Building your 3D tour</b><span>Walls, windows and furniture, to scale</span></div></div>
@@ -1665,7 +1673,7 @@ function cardHTML(p){const on=cmpSet.has(p.id);return `<article class="card" dat
   <div class="pl"><span class="code">${p.code}</span><img src="img/plan${p.id}.webp" alt="" loading="lazy"></div>
   <div class="meta"><span class="sf num">${p.sf.toLocaleString()}<small>sq ft</small></span><span class="bb">${p.beds} bed<br>${p.baths} bath</span></div>
   <div class="tags">${availPill(p)}${p.f.map(f=>`<span class="tag">${f}</span>`).join('')}</div>
-  <div class="price"><b class="num">From ${money(planLo(p))}</b><span class="num">$${(planLo(p)/p.sf).toFixed(2)} per sq ft</span></div></button><button class="cmp" type="button" data-cmp="${p.id}" aria-pressed="${on}" aria-label="Compare ${p.code}">${on?'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 7.5l3 3 6-7"/></svg>Added':'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2v10M2 7h10"/></svg>Compare'}</button><div class="t3wrap"><button class="t3b" type="button" data-3d="${p.id}" aria-label="3D tour of ${p.code}">${cube}<span>3D tour</span></button></div></article>`}
+  <div class="price"><b class="num">From ${money(planLo(p))}</b><span class="num">$${(planLo(p)/p.sf).toFixed(2)} per sq ft</span></div></button><button class="cmp" type="button" data-cmp="${p.id}" aria-pressed="${on}" aria-label="Compare ${p.code}">${on?'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 7.5l3 3 6-7"/></svg>Added':'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2v10M2 7h10"/></svg>Compare'}</button><div class="t3wrap"><button class="t3b" type="button" data-3d="${p.id}" aria-label="${p.code} in 3D">${cube}<span>3D floor plan</span></button></div></article>`}
 function renderGrid(){
   const r=filtered();const g=$('#grid');
   const html=r.length?r.map(cardHTML).join(''):`<div class="empty"><h3 style="font-size:28px">No plans match those filters.</h3><p style="color:var(--muted)">Try a higher budget or fewer must haves.</p><button class="btn dark" type="button" data-reset>Show all 11 plans</button></div>`;
@@ -2159,7 +2167,7 @@ function loop(){if(mode==='free')ctl.update();R.render(scene,cam);placeTags()}
 /* open */
 async function open(id,m){meta=m||{};planId=id;const my=++reqId;
   q('#t3Code').textContent=meta.code||'';q('#t3Title').innerHTML=meta.title||'';q('#t3Sub').textContent=meta.sub||'';q('#t3EndK').textContent=meta.code||'';
-  const L=q('#t3Load');L.classList.remove('gone');L.innerHTML=`<div><div class="ring"></div><b>${T('Building your 3D tour')}</b><span>${T('Walls, windows and furniture, to scale')}</span></div>`;
+  const L=q('#t3Load');L.classList.remove('gone');L.innerHTML=`<div><div class="ring"></div><b>${T('Building your 3D floor plan')}</b><span>${T('Walls, windows and furniture, to scale')}</span></div>`;
   q('#t3Cap').classList.remove('on');endCard(false);q('#t3Rooms').innerHTML='';q('#t3Tags').innerHTML='';tags=[];
   const fb=q('.t3-fallback');fb&&fb.remove();
   if(!TD.open){TD.showModal();document.documentElement.style.overflow='hidden'}
@@ -2187,7 +2195,7 @@ async function open(id,m){meta=m||{};planId=id;const my=++reqId;
     if(my!==reqId||mode!=='free')return;ctl.autoRotate=!reduce;hint(true);
   }catch(e){if(my===reqId)fail(false)}
 }
-function fail(nogl){const L=q('#t3Load');L.innerHTML=`<div><b>${nogl?T('3D is not supported on this device'):T('The 3D tour could not load')}</b><span>${nogl?T('Here is the floor plan instead.'):T('Check your connection and try again.')}</span>${nogl?'':`<button class="btn retry" type="button" id="t3Retry">${T('Try again')}</button>`}</div>`;
+function fail(nogl){const L=q('#t3Load');L.innerHTML=`<div><b>${nogl?T('3D is not supported on this device'):T('The 3D floor plan could not load')}</b><span>${nogl?T('Here is the floor plan instead.'):T('Check your connection and try again.')}</span>${nogl?'':`<button class="btn retry" type="button" id="t3Retry">${T('Try again')}</button>`}</div>`;
   const r=q('#t3Retry');r&&r.addEventListener('click',()=>open(planId,meta));
   if(nogl){L.classList.add('gone');const f=document.createElement('div');f.className='t3-fallback';f.innerHTML=`<img src="img/plan${planId}.webp" alt="Floor plan">`;TD.appendChild(f)}}
 function close(){TD.open&&TD.close()}
@@ -2280,7 +2288,7 @@ const ES={
 "Must have":"Indispensable","Home office":"Oficina en casa","Walk in closet":"Vestidor","Separate dining":"Comedor separado","1.5 baths":"1.5 baños",
 "Checking the leasing office":"Consultando la oficina de alquiler","Move in by":"Mudanza antes de","Any move in date":"Cualquier fecha de mudanza","Available now":"Disponible ya","Available only":"Solo disponibles",
 "Showing":"Mostrando","of 11 plans":"de 11 planos","Clear filters":"Borrar filtros",
-"sq ft":"pies²","Compare":"Comparar","Added":"Agregado","3D tour":"Recorrido 3D","Waitlist":"Lista de espera",
+"sq ft":"pies²","Compare":"Comparar","Added":"Agregado","3D floor plan":"Plano en 3D","Reset":"Restablecer","3D view":"Vista 3D","Top view":"Vista de planta","Explore this floor plan in 3D":"Explore este plano en 3D","Close 3D floor plan":"Cerrar plano en 3D","Building your 3D floor plan":"Preparando su plano en 3D","The 3D floor plan could not load":"No se pudo cargar el plano en 3D","Waitlist":"Lista de espera",
 "No plans match those filters.":"Ningún plano coincide con esos filtros.","Try a higher budget or fewer must haves.":"Pruebe con un presupuesto mayor o menos requisitos.","Show all 11 plans":"Ver los 11 planos",
 "Rent ranges as currently listed by Crestwood Lake. Pricing and availability change, so confirm with the leasing office before you apply.":"Rangos de renta según la lista actual de Crestwood Lake. Los precios y la disponibilidad cambian, así que confirme con la oficina de alquiler antes de solicitar.",
 "Close":"Cerrar","Explore in 3D":"Explorar en 3D","Tap to zoom":"Toque para ampliar","Monthly rent":"Renta mensual","Available from":"Disponible desde","Listed rent":"Renta publicada","Available units":"Apartamentos disponibles","Included in rent":"Incluido en la renta","Heat":"Calefacción","Hot water":"Agua caliente","Cooking gas":"Gas para cocinar",
@@ -2417,7 +2425,7 @@ const RX=[
 [/^Plan (\d+), ([\d,]+) sq ft, (.+)$/,(m,n,s,r)=>`Plan ${n}, ${s} pies², ${bb(r)}`],
 [/^Plan (\d+), ([\d,]+) square feet, (.+), from (\$[\d,]+)\. View room sizes$/,(m,n,s,r,p)=>`Plan ${n}, ${s} pies cuadrados, ${bb(r)}, desde ${p}. Ver medidas de las habitaciones`],
 [/^Compare Plan (\d+)$/,(m,n)=>`Comparar Plan ${n}`],
-[/^3D tour of Plan (\d+)$/,(m,n)=>`Recorrido 3D del Plan ${n}`],
+[/^Plan (\d+) in 3D$/,(m,n)=>`Plan ${n} en 3D`],
 [/^Floor plan drawing for Plan (\d+)$/,(m,n)=>`Dibujo del plano del Plan ${n}`],
 [/^Plan (\d+) floor plan$/,(m,n)=>`Plano del Plan ${n}`],
 [/^([\d,]+) sq ft$/,(m,n)=>`${n} pies²`],
