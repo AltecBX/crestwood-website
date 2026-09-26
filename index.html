@@ -716,6 +716,27 @@ details.q .a a{color:var(--lake)}
   .finals{grid-template-columns:1fr}
 }
 
+/* live availability */
+.live-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--ink);color:#fff;border-radius:18px;padding:14px 18px;margin-bottom:18px}
+.live-bar .dot{background:#7EE0A6}
+.live-bar.snap .dot{background:var(--sun-2);animation:none}
+.live-bar b{font-family:var(--display);font-size:22px;letter-spacing:-.02em}
+.live-bar span{color:var(--on-dark-muted);font-size:14px}
+.live-bar .grow{flex:1}
+.live-bar select{background-color:rgba(255,255,255,.12);color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E")}
+.live-bar select option{color:#152F35}
+.avail{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(62,138,103,.14);color:#2B6E50}
+.avail i{width:7px;height:7px;border-radius:50%;background:#3E8A67}
+.avail.none{background:var(--mist);color:var(--muted)}
+.avail.none i{background:var(--muted);opacity:.5}
+.units{width:100%;border-collapse:collapse;font-size:14.5px}
+.units th{font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 0 8px}
+.units td{padding:11px 0;border-top:1px solid var(--line);vertical-align:middle}
+.units td:last-child{text-align:right}
+.units .now{color:#2B6E50;font-weight:600}
+.units button{border:0;background:var(--ink);color:#fff;border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer}
+.units-empty{background:var(--mist);border-radius:14px;padding:14px 16px;font-size:14.5px;color:var(--ink-2)}
+
 /* phone polish */
 .pin::after,.sd::after{content:"";position:absolute;inset:-10px;border-radius:50%}
 .cmp{padding:9px 12px 9px 10px}
@@ -815,6 +836,133 @@ body.lock{overflow:hidden}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .hero .media img{animation:none}
 }
+/* 3D tour */
+.t3wrap{position:absolute;top:14px;left:14px;right:14px;aspect-ratio:1/1;pointer-events:none;z-index:2}
+.t3b{position:absolute;left:12px;bottom:12px;pointer-events:auto;border:0;display:inline-flex;align-items:center;gap:7px;padding:9px 13px 9px 11px;border-radius:999px;background:var(--ink);color:#fff;font:600 12.5px/1 var(--body);cursor:pointer;box-shadow:0 10px 24px -12px rgba(21,47,53,.8);overflow:hidden;isolation:isolate;transition:transform .35s var(--ease),background .3s}
+.t3b svg{width:15px;height:15px;flex:none}
+.t3b::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-120%);animation:t3shine 4.5s var(--ease) infinite}
+.t3b:hover{transform:translateY(-2px);background:var(--lake)}
+@keyframes t3shine{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+.dlg .zoom .t3open{position:absolute;top:16px;left:16px;z-index:2;border:0;display:inline-flex;align-items:center;gap:8px;padding:11px 16px 11px 13px;border-radius:999px;background:var(--ink);color:#fff;font:600 14px/1 var(--body);cursor:pointer;box-shadow:0 14px 30px -14px rgba(21,47,53,.9)}
+.dlg .zoom .t3open svg{width:17px;height:17px}
+.dlg .zoom .t3open:hover{background:var(--lake)}
+#tourDlg{width:100vw;max-width:100vw;height:100vh;height:100dvh;max-height:none;margin:0;inset:0;border-radius:0;padding:0;background:radial-gradient(120% 85% at 50% 38%,#2a4f57 0%,#16323a 48%,#0b191d 100%);color:var(--on-dark);overflow:hidden;box-shadow:none}
+#tourDlg[open]{animation:t3in .7s var(--ease)}
+#tourDlg::backdrop{background:#0b191d}
+@keyframes t3in{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
+.t3{position:absolute;inset:0}
+.t3 canvas{display:block;width:100%;height:100%;touch-action:none;outline:none;cursor:grab}
+.t3 canvas:active{cursor:grabbing}
+.t3-grain{position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 40% at 50% 100%,rgba(244,147,58,.10),transparent 70%)}
+.t3-top{position:absolute;left:0;right:0;top:0;z-index:4;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:calc(18px + env(safe-area-inset-top)) var(--gutter) 34px;pointer-events:none;background:linear-gradient(180deg,rgba(9,22,26,.78),rgba(9,22,26,.42) 60%,transparent)}
+.t3-top>*{pointer-events:auto}
+.t3-ttl .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sun-2);display:flex;align-items:center;gap:8px}
+.t3-ttl .k i{width:6px;height:6px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px rgba(244,147,58,.22);animation:t3pulse 2s ease-in-out infinite}
+@keyframes t3pulse{50%{box-shadow:0 0 0 8px rgba(244,147,58,0)}}
+.t3-ttl h3{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.2vw,40px);letter-spacing:-.02em;line-height:1.05;margin-top:8px;color:#fff}
+.t3-ttl h3 small{font-size:.5em;font-weight:500;color:var(--on-dark-muted);margin-left:6px;letter-spacing:0}
+.t3-ttl p{color:var(--on-dark-muted);font-size:14px;margin-top:4px}
+.t3-x{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none;transition:background .3s}
+.t3-x:hover{background:rgba(255,255,255,.18)}
+.t3-x svg{width:16px;height:16px}
+.t3-glass{background:rgba(14,32,37,.72);border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3)}
+.t3-bot{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:40px var(--gutter) calc(18px + env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(9,22,26,.7),rgba(9,22,26,.3) 60%,transparent);display:flex;flex-direction:column;align-items:center;gap:12px;pointer-events:none}
+.t3-bot>*{pointer-events:auto}
+.t3-rooms{display:flex;gap:8px;max-width:100%;overflow-x:auto;scrollbar-width:none;padding:2px;scroll-snap-type:x proximity}
+.t3-rooms::-webkit-scrollbar{display:none}
+.t3-rooms button{flex:none;scroll-snap-align:center;border:1px solid rgba(255,255,255,.16);background:rgba(14,32,37,.62);color:var(--on-dark);border-radius:999px;padding:9px 14px;font:500 13.5px/1 var(--body);cursor:pointer;white-space:nowrap;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .3s,color .3s,border-color .3s}
+.t3-rooms button:hover{background:rgba(30,60,68,.8)}
+.t3-rooms button[aria-pressed="true"]{background:#fff;color:var(--ink);border-color:#fff}
+.t3-dock{display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px}
+.t3-play{border:0;display:inline-flex;align-items:center;gap:10px;padding:13px 20px 13px 16px;border-radius:999px;background:var(--sun);color:#2A1604;font:600 15px/1 var(--body);cursor:pointer;white-space:nowrap;transition:background .3s,transform .3s var(--ease)}
+.t3-play:hover{background:var(--sun-2)}
+.t3-play svg{width:16px;height:16px}
+.t3-seg{display:flex;background:rgba(255,255,255,.06);border-radius:999px;padding:3px}
+.t3-seg button,.t3-ic{border:0;background:transparent;color:var(--on-dark);font:500 13.5px/1 var(--body);padding:10px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:background .3s,color .3s}
+.t3-seg button[aria-pressed="true"]{background:rgba(255,255,255,.92);color:var(--ink)}
+.t3-ic{width:44px;height:44px;padding:0;display:grid;place-items:center}
+.t3-ic:hover{background:rgba(255,255,255,.1)}
+.t3-ic svg{width:18px;height:18px}
+.t3-cap{position:absolute;left:var(--gutter);bottom:calc(150px + env(safe-area-inset-bottom));z-index:4;width:min(380px,calc(100vw - 2*var(--gutter)));border-radius:22px;padding:18px 18px 16px;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease);pointer-events:none}
+.t3-cap.on{opacity:1;transform:none;pointer-events:auto}
+.t3-cap .n{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--sun-2);text-transform:uppercase}
+.t3-cap h4{font-family:var(--display);font-weight:600;font-size:clamp(26px,3vw,34px);letter-spacing:-.02em;line-height:1.05;margin:6px 0 2px;color:#fff}
+.t3-cap .d{font-family:var(--mono);font-size:13px;color:var(--on-dark-muted);min-height:1.3em}
+.t3-cap .bar{display:flex;gap:4px;margin-top:14px}
+.t3-cap .bar i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden;position:relative}
+.t3-cap .bar i b{position:absolute;inset:0;background:var(--sun);transform-origin:left;transform:scaleX(0)}
+.t3-cap .bar i.done b{transform:scaleX(1)}
+.t3-cap .t3nav{position:absolute;top:14px;right:12px;display:flex;gap:4px}
+.t3-cap .t3nav button{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:transparent;color:#fff;display:grid;place-items:center;cursor:pointer}
+.t3-cap .t3nav button:hover{background:rgba(255,255,255,.12)}
+.t3-cap .t3nav svg{width:14px;height:14px}
+.t3-tags{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.t3-tag{position:absolute;left:0;top:0;pointer-events:auto;border:0;cursor:pointer;display:flex;align-items:center;gap:6px;padding:7px 11px 7px 8px;border-radius:999px;background:rgba(249,250,246,.94);color:var(--ink);font:600 12.5px/1 var(--body);white-space:nowrap;box-shadow:0 8px 22px -10px rgba(0,0,0,.6);transition:opacity .35s,background .3s,color .3s;will-change:transform}
+.t3-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--moss)}
+.t3-tag::after{content:"";position:absolute;left:50%;bottom:-5px;width:9px;height:9px;background:inherit;transform:translateX(-50%) rotate(45deg);border-radius:2px;z-index:-1}
+.t3-tag.on{background:var(--sun);color:#2A1604}
+.t3-tag.on::before{background:#2A1604}
+.t3-tag.dim{opacity:.35}
+.t3-tag.off{opacity:0;pointer-events:none}
+.t3-load{position:absolute;inset:0;z-index:5;display:grid;place-items:center;text-align:center;transition:opacity .6s var(--ease)}
+.t3-load.gone{opacity:0;pointer-events:none}
+.t3-load .ring{width:62px;height:62px;margin:0 auto 18px;border-radius:50%;border:2px solid rgba(255,255,255,.12);border-top-color:var(--sun);animation:t3spin 1s linear infinite}
+@keyframes t3spin{to{transform:rotate(360deg)}}
+.t3-load b{display:block;font-family:var(--display);font-size:22px;font-weight:600;color:#fff}
+.t3-load span{display:block;color:var(--on-dark-muted);font-size:14px;margin-top:6px}
+.t3-load .retry{margin-top:16px}
+.t3-hint{position:absolute;left:50%;top:50%;z-index:3;transform:translate(-50%,-50%);white-space:nowrap;display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;font-size:13.5px;color:#fff;pointer-events:none;transition:opacity .6s var(--ease)}
+.t3-hint svg{width:22px;height:22px;animation:t3drag 2.4s var(--ease) infinite}
+@keyframes t3drag{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+.t3-hint.gone{opacity:0}
+.t3-note{position:absolute;right:var(--gutter);bottom:calc(24px + env(safe-area-inset-bottom));z-index:4;max-width:230px;text-align:right;font-size:11.5px;line-height:1.45;color:rgba(238,243,239,.62);text-shadow:0 1px 8px rgba(0,0,0,.6);transition:opacity .4s}
+#tourDlg.touring .t3-note{opacity:0}
+.t3-end{position:absolute;left:50%;top:50%;z-index:5;transform:translate(-50%,-44%);width:min(420px,calc(100vw - 2*var(--gutter)));border-radius:26px;padding:26px;text-align:center;opacity:0;pointer-events:none;transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.t3-end.on{opacity:1;transform:translate(-50%,-50%);pointer-events:auto}
+.t3-end .k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--sun-2);text-transform:uppercase}
+.t3-end h4{font-family:var(--display);font-size:30px;font-weight:600;letter-spacing:-.02em;color:#fff;margin:8px 0 6px;line-height:1.1}
+.t3-end p{color:var(--on-dark-muted);font-size:14.5px}
+.t3-end .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.t3-end .ghost{border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff}
+.t3-end .ghost:hover{background:rgba(255,255,255,.1);box-shadow:none}
+.t3-fallback{position:absolute;inset:0;display:grid;place-items:center;padding:90px var(--gutter) 40px;z-index:2}
+.t3-fallback img{max-width:min(640px,100%);max-height:70vh;background:#fff;border-radius:18px;padding:18px}
+@media (max-width:760px){
+  .t3-top{padding-top:calc(12px + env(safe-area-inset-top))}
+  .t3-ttl h3{font-size:24px}
+  .t3-ttl p{font-size:13px}
+  .t3-x{width:44px;height:44px}
+  .t3-bot{gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+  .t3-rooms{align-self:stretch;max-width:none;margin:0 calc(-1*var(--gutter));padding:2px var(--gutter)}
+  .t3-dock{align-self:stretch}
+  .t3-play{flex:1;justify-content:center;padding:14px 12px}
+  .t3-seg button{padding:10px 11px}
+  .t3-ic{width:42px;height:42px}
+  .t3-cap{bottom:calc(128px + env(safe-area-inset-bottom));padding:14px 14px 13px;border-radius:18px}
+  .t3-cap h4{font-size:24px}
+  .t3-note{left:var(--gutter);right:auto;top:calc(92px + env(safe-area-inset-top));bottom:auto;text-align:left;max-width:60vw;font-size:10.5px}
+  .t3-tag{font-size:11.5px;padding:6px 9px 6px 7px}
+}
+@media (prefers-reduced-motion:reduce){.t3b::after,.t3-hint svg,.t3-ttl .k i{animation:none}}
+.lang{display:inline-flex;align-items:center;gap:7px;border:0;background:rgba(127,127,127,.16);color:inherit;border-radius:999px;padding:9px 13px 9px 10px;font:600 13.5px/1 var(--body);cursor:pointer;white-space:nowrap;transition:background .25s}
+.lang:hover{background:rgba(127,127,127,.26)}
+.lang svg{width:17px;height:17px;flex:none}
+.lang .ls{display:none;font-weight:700;letter-spacing:.04em}
+.drawer .big-lang{align-self:flex-start;margin-top:18px;background:rgba(255,255,255,.1);color:#fff;font-size:17px;padding:13px 18px 13px 14px}
+.drawer .big-lang .ls{display:none}.drawer .big-lang .lf{display:inline}
+@media (max-width:1100px){.nav .lang .lf{display:none}.nav .lang .ls{display:inline}.nav .lang{padding:9px 11px 9px 9px}}
+@media (max-width:380px){.nav .lang svg{display:none}}
+.nav ul a,.nav .phone{white-space:nowrap}
+@media (max-width:1400px){.nav .phone{display:none}}
+@media (max-width:1280px){.nav .lang .lf{display:none}.nav .lang .ls{display:inline}.nav .lang{padding:9px 11px 9px 9px}}
+.dlg>*{min-width:0}
+.units th,.units td{padding-right:8px}
+.units th:last-child,.units td:last-child{padding-right:0}
+@media (max-width:480px){.units{font-size:13.5px}.units th{font-size:9.5px;letter-spacing:.06em}.units button{padding:7px 10px}.dlg .pr{gap:10px}}
+.t3:focus{outline:none}
+#moveBy{max-width:100%;min-width:0}
+.pets .tx,.pets .ph{min-width:0}
+@media (max-width:480px){.btn{white-space:normal;text-align:center;line-height:1.25}.nav .lang{min-height:38px;min-width:42px;justify-content:center}}
 </style>
 
 <div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
@@ -835,6 +983,7 @@ body.lock{overflow:hidden}
       </ul>
     </nav>
     <div class="right">
+      <button class="lang" type="button" data-lang-btn data-i18n-skip lang="es" aria-label="Ver en español"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg><span class="lf">Español</span><b class="ls">ES</b></button>
       <div class="wxw" id="wxw" hidden><button class="wx" id="wx" type="button" aria-expanded="false" aria-controls="wxPop"><span id="wxIc"></span><b id="wxT"></b><span class="wl" id="wxL"></span>
       </button><div class="wx-pop" id="wxPop" hidden role="dialog" aria-label="Weather at Crestwood Lake"><span class="label">Right now at Crestwood Lake</span><span class="big"><span id="wxIc2"></span><span id="wxT2"></span></span><span id="wxL2" style="font-size:15px"></span><span class="wxrow"><span>Today</span><b id="wxHL"></b></span><span class="wxrow"><span>Sunset over the lake</span><b id="wxSS"></b></span><small id="wxAt"></small></div></div>
       <a class="phone" href="tel:+19142282887">914 228 2887</a>
@@ -854,6 +1003,7 @@ body.lock{overflow:hidden}
   <a class="big" href="#faq" data-scroll>FAQ</a>
   <a class="big" href="#apply" data-scroll>Apply</a>
   <a class="big" href="#tour" data-scroll>Book a tour</a>
+  <button class="lang big-lang" type="button" data-lang-btn data-i18n-skip lang="es" aria-label="Ver en español"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg><span class="lf">Español</span><b class="ls">ES</b></button>
   <div class="foot">
     <span>90 Beaumont Circle, Yonkers, NY 10710</span>
     <a href="tel:+19142282887" style="text-decoration:none">Leasing office: 914 228 2887</a>
@@ -998,6 +1148,7 @@ body.lock{overflow:hidden}
       </div>
       <div class="feat-row" id="featRow"><span class="label">Must have</span></div>
     </div>
+    <div class="live-bar snap" id="liveBar"><span class="dot" aria-hidden="true"></span><div class="grow"><b id="lbCount">27 apartments available</b><br><span id="lbWhen">Checking the leasing office</span></div><label class="sr" for="moveBy">Move in by</label><select id="moveBy"><option value="">Any move in date</option></select><button class="chip" type="button" id="availOnly" aria-pressed="false" style="background:rgba(255,255,255,.12);color:#fff;box-shadow:none">Available only</button></div>
     <div class="results-line"><span class="label" id="resLine">Showing <b>11</b> of 11 plans</span><button class="btn line" type="button" id="resetBtn" hidden>Clear filters</button></div>
     <div class="grid" id="grid"></div>
     <p class="price-note">Rent ranges as currently listed by Crestwood Lake. Pricing and availability change, so confirm with the leasing office before you apply.</p>
@@ -1007,10 +1158,11 @@ body.lock{overflow:hidden}
 <dialog id="dlg" aria-labelledby="dlgTitle">
   <button class="close" id="dlgClose" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
   <div class="dlg">
-    <div class="zoom" id="zoom"><img id="dlgImg" alt=""><span class="hint">Tap to zoom</span></div>
+    <div class="zoom" id="zoom"><button class="t3open" type="button" id="dlgT3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.8l8 4.6v9.2l-8 4.6-8-4.6V7.4z"/><path d="M4 7.4l8 4.6 8-4.6M12 12v9.2"/></svg><span>Explore in 3D</span></button><img id="dlgImg" alt=""><span class="hint">Tap to zoom</span></div>
     <div class="info">
       <div><span class="label" id="dlgCode"></span><h3 id="dlgTitle"></h3><p id="dlgSub" style="color:var(--muted);margin-top:8px"></p></div>
-      <div class="pr"><span class="label">Monthly rent</span><b id="dlgPrice" class="num"></b></div>
+      <div class="pr"><span class="label" id="dlgPriceLbl">Monthly rent</span><b id="dlgPrice" class="num"></b></div>
+      <div><span class="label" style="display:block;margin-bottom:10px">Available units</span><div id="dlgUnits"></div></div>
       <table class="rooms" id="dlgRooms"></table>
       <div><span class="label" style="display:block;margin-bottom:10px">Included in rent</span><div class="incl"><span class="tag">Heat</span><span class="tag">Hot water</span><span class="tag">Cooking gas</span></div></div>
       <button class="btn" id="dlgApply" style="justify-content:space-between">Apply for this layout <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button>
@@ -1293,6 +1445,39 @@ body.lock{overflow:hidden}
 
 <div class="tray" id="tray" role="region" aria-label="Compare floor plans"><span id="trayTxt">0 selected</span><span class="thumbs" id="trayThumbs"></span><button class="x" type="button" id="trayClear">Clear</button><button class="btn" type="button" id="trayGo">Compare</button></div>
 <dialog id="cmpDlg" aria-labelledby="cmpTitle"><button class="close" id="cmpClose" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l10 10M13 3L3 13"/></svg></button><div class="cmp-wrap"><span class="label">Side by side</span><h3 id="cmpTitle">Compare floor plans</h3><p style="color:var(--muted)">Green marks the best value in each row.</p><div class="cmp-scroll"><table class="cmp-table" id="cmpTable"></table></div></div></dialog>
+<dialog id="tourDlg" aria-labelledby="t3Title" data-lenis-prevent>
+  <div class="t3" id="t3" tabindex="-1" autofocus></div>
+  <div class="t3-grain"></div>
+  <div class="t3-tags" id="t3Tags"></div>
+  <div class="t3-top">
+    <div class="t3-ttl"><span class="k"><i></i><span id="t3Code">Plan</span><span>3D tour</span></span><h3 id="t3Title"></h3><p id="t3Sub"></p></div>
+    <button class="t3-x" id="t3Close" type="button" aria-label="Close 3D tour"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+  </div>
+  <div class="t3-cap t3-glass" id="t3Cap" aria-live="polite">
+    <span class="n" id="t3Step"></span>
+    <h4 id="t3Room"></h4>
+    <div class="d" id="t3Dim"></div>
+    <div class="bar" id="t3Bar"></div>
+    <div class="t3nav"><button type="button" id="t3Prev" aria-label="Previous room"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" id="t3Next" aria-label="Next room"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3l5 5-5 5"/></svg></button></div>
+  </div>
+  <div class="t3-hint t3-glass gone" id="t3Hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 013 0V10m0-1.5a1.5 1.5 0 013 0V11m0-1a1.5 1.5 0 013 0v4.5a6 6 0 01-6 6h-1a6 6 0 01-5-2.7L3.8 14a1.5 1.5 0 012.4-1.8L9 15"/></svg><span id="t3HintTx">Drag to look around</span></div>
+  <p class="t3-note" id="t3Note">3D model built from the official floor plan. Furniture shown for scale. Finishes vary by apartment.</p>
+  <div class="t3-end t3-glass" id="t3End">
+    <span class="k" id="t3EndK"></span>
+    <h4>Picture yourself here?</h4>
+    <p>See it in person or start your application in a few minutes.</p>
+    <div class="row"><button class="btn" type="button" id="t3Book">Book a tour</button><button class="btn ghost" type="button" id="t3Apply">Apply now</button><button class="btn ghost" type="button" id="t3Replay">Replay</button></div>
+  </div>
+  <div class="t3-bot">
+    <div class="t3-rooms" id="t3Rooms" role="group" aria-label="Rooms"></div>
+    <div class="t3-dock t3-glass">
+      <button class="t3-play" type="button" id="t3Play"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9.5-5.5z"/></svg><span>Play walkthrough</span></button>
+      <div class="t3-seg" role="group" aria-label="View"><button type="button" data-v="3d" aria-pressed="true">3D</button><button type="button" data-v="top" aria-pressed="false">Top</button></div>
+      <button class="t3-ic" type="button" id="t3Reset" aria-label="Reset view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 109-9 9.5 9.5 0 00-6.7 2.8L3 8"/><path d="M3 3v5h5"/></svg></button>
+    </div>
+  </div>
+  <div class="t3-load" id="t3Load"><div><div class="ring"></div><b>Building your 3D tour</b><span>Walls, windows and furniture, to scale</span></div></div>
+</dialog>
 <div class="mbar" id="mbar"><a class="btn line call" href="tel:+19142282887" aria-label="Call the leasing office"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></a><a class="btn line" href="#homes" data-scroll>Floor plans</a><a class="btn" href="#tour" data-scroll>Book a tour</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -1305,6 +1490,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fine=matchMedia('(pointer:fine)').matches;
 const money=n=>'$'+n.toLocaleString('en-US');
 const arrow='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg>';
+const cube='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.8l8 4.6v9.2l-8 4.6-8-4.6V7.4z"/><path d="M4 7.4l8 4.6 8-4.6M12 12v9.2"/></svg>';
 const check='<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9.5l4 4 8-9"/></svg>';
 
 
@@ -1423,28 +1609,70 @@ $('#mapChips').addEventListener('click',e=>{const b=e.target.closest('.chip');if
 });
 showPoi(0);
 
+/* ---------- live availability (leasing office feed) ---------- */
+const SNAP_AT="2026-09-26T18:40";
+const SNAP=[["150-15B-1", 632, 1, 1.0, "7/31/2026", 2655.0], ["150-16B-4", 632, 1, 1.0, "8/31/2026", 2655.0], ["150-214-1", 632, 1, 1.0, "6/30/2026", 2655.0], ["150-214-2", 632, 1, 1.0, "7/31/2026", 2655.0], ["150-29B-3", 632, 1, 1.0, "7/31/2026", 2655.0], ["150-31S-4", 632, 1, 1.0, "9/1/2026", 2655.0], ["150-3L-3", 632, 1, 1.0, "6/30/2026", 2755.0], ["150-61B-1", 632, 1, 1.0, "6/30/2026", 2655.0], ["150-67B-4", 632, 1, 1.0, "8/21/2026", 2655.0], ["150-6B-1", 632, 1, 1.0, "8/31/2026", 2655.0], ["150-9B-2", 632, 1, 1.0, "7/11/2026", 2655.0], ["150-56B-2", 703, 2, 1.0, "8/31/2026", 3140.0], ["150-57B-1", 703, 2, 1.0, "7/31/2026", 3140.0], ["150-72B-2", 703, 2, 1.0, "5/31/2026", 3140.0], ["150-7R-4", 703, 2, 1.0, "4/30/2026", 3140.0], ["130-89S-4", 729, 1, 1.0, "7/14/2026", 2850.0], ["120-13N-1", 731, 1, 1.0, "8/13/2026", 2550.0], ["110-6A-1", 867, 2, 1.0, "6/20/2026", 3000.0], ["120-31N-3", 867, 2, 1.0, "8/31/2026", 3300.0], ["130-67S-4", 867, 2, 1.0, "8/12/2026", 3200.0], ["130-69S-4", 867, 2, 1.0, "6/30/2026", 3300.0], ["140-58S-4", 867, 2, 1.0, "6/15/2026", 3300.0], ["140-86S-3", 867, 2, 1.0, "7/31/2026", 3200.0], ["120-14N-4", 870, 2, 1.0, "9/2/2026", 3300.0], ["150-74B-4", 876, 2, 1.0, "7/31/2026", 3305.0], ["150-7B-2", 876, 2, 1.0, "8/17/2026", 3200.0], ["150-86B-3", 876, 2, 1.0, "8/31/2026", 3300.0]];
+const SQFT2PLAN={632:[1],729:[2],731:[3,4],703:[5],867:[6],870:[7],876:[8],935:[9],948:[10],1017:[11]};
+let UNITS=[],UNITS_LIVE=false;
+function parseD(s){const [m,d,y]=s.split('/').map(Number);return new Date(y,m-1,d)}
+function setUnits(rows,live,at){UNITS=rows.map(r=>({name:r[0],sf:r[1],beds:r[2],baths:r[3],date:parseD(r[4]),price:r[5]}));UNITS_LIVE=live;
+  PLANS.forEach(p=>{p.units=UNITS.filter(u=>(SQFT2PLAN[u.sf]||[]).includes(p.id)).sort((a,b)=>{const t=+today0();return Math.max(+a.date,t)-Math.max(+b.date,t)||a.price-b.price||a.name.localeCompare(b.name)})});
+  const n=UNITS.length;$('#lbCount').textContent=`${n} apartment${n===1?'':'s'} available`;
+  const bar=$('#liveBar');bar.classList.toggle('snap',!live);
+  const t=new Date(at);const hm=t.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}).replace(' ','').toLowerCase();
+  $('#lbWhen').textContent=live?`Live from the leasing office, updated ${hm}`:`From the leasing office, last updated ${t.toLocaleDateString('en-US',{month:'short',day:'numeric'})}, ${hm}`;
+  renderGrid();if(dlg.open&&curPlan)renderDlgUnits(curPlan);
+}
+const today0=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
+function availTxt(u){return u.date<=today0()?'Available now':'Available '+u.date.toLocaleDateString('en-US',{month:'short',day:'numeric'})}
+(function moveOpts(){const s=$('#moveBy');const now=new Date();const opts=[['now','Available now']];for(let i=0;i<4;i++){const d=new Date(now.getFullYear(),now.getMonth()+i+1,0);opts.push([d.toISOString().slice(0,10),'Move in by '+d.toLocaleDateString('en-US',{month:'long',day:'numeric'})])}s.insertAdjacentHTML('beforeend',opts.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join(''))})();
+function unitsFor(p){const mb=state.moveBy;if(!p.units)return[];if(!mb)return p.units;const lim=mb==='now'?today0():new Date(mb+'T23:59');return p.units.filter(u=>u.date<=lim)}
+async function loadUnits(){
+  const B='https://www.iloveleasing.com/pub/wapi/api/';
+  const base={guid:'343E752775034CCF8A71A4EC83C00758',propid:'bcsupbono',advertiserid:'',psid:'mctuarneocb',url:location.href,phaseid:''};
+  const post=async(ep,extra)=>{const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),12000);const r=await fetch(B+ep,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(Object.assign({},base,extra)),signal:ctl.signal});clearTimeout(tm);return r.json()};
+  try{const init=await post('init/',{userguid:'',browser:navigator.userAgent});base.userguid=init.user_token;
+    const d=new Date();const md=`${d.getMonth()+1}/${d.getDate()}/${d.getFullYear()}`;
+    const j=await post('availability/',{movedate:md,beds:'',baths:'',minsqft:'',maxsqft:'',minprice:'',maxprice:''});
+    if(j.valid!=='true'||!Array.isArray(j.units))throw 0;
+    const m={};j.units.forEach(u=>{m[u.unitname]=[u.unitname,+u.sqft,+u.beds,+u.baths,u.dateavailable,Math.min(...u.termprices.map(t=>+t.price))]});
+    setUnits(Object.values(m),true,new Date().toISOString());
+  }catch(e){setUnits(SNAP,false,SNAP_AT)}
+}
+$('#moveBy').addEventListener('change',e=>{state.moveBy=e.target.value;renderGrid()});
+$('#availOnly').addEventListener('click',e=>{state.availOnly=!state.availOnly;e.currentTarget.setAttribute('aria-pressed',state.availOnly);e.currentTarget.style.background=state.availOnly?'#fff':'rgba(255,255,255,.12)';e.currentTarget.style.color=state.availOnly?'var(--ink)':'#fff';renderGrid()});
+function renderDlgUnits(p){const us=unitsFor(p);
+  $('#dlgUnits').innerHTML=us.length?`<table class="units"><thead><tr><th>Unit</th><th>Move in</th><th>Rent</th><th></th></tr></thead><tbody>${us.map(u=>`<tr><td>${u.name}</td><td class="${u.date<=today0()?'now':''}">${availTxt(u).replace('Available ','').replace('now','Now')}</td><td class="num">${money(u.price)}</td><td><button type="button" data-unit="${u.name}">Tour</button></td></tr>`).join('')}</tbody></table>${p.id===3||p.id===4?'<p class="fine" style="margin-top:8px">731 sq ft units can be Plan 03 or Plan 04. The leasing office will confirm the layout.</p>':''}`
+   :`<div class="units-empty">No units open in this layout right now. Book a tour and the leasing office will add you to the waitlist.</div>`;
+  const lo=us.length?Math.min(...us.map(u=>u.price)):null;
+  $('#dlgPriceLbl').textContent=lo?'Available from':'Listed rent';$('#dlgPrice').textContent=lo?money(lo):`${money(p.lo)} to ${money(p.hi)}`}
+$('#dlgUnits').addEventListener('click',e=>{const b=e.target.closest('[data-unit]');if(!b)return;dlg.close();$('#fplan').value=curPlan.code;
+  const bv=curPlan.beds===1?'1 bedroom':curPlan.beds+' bedrooms';$$('#tBeds button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===bv));window.__tourUnit=b.dataset.unit;go('#tour')});
+
 /* ---------- floor plans ---------- */
-const state={beds:0,budget:4100,sort:'size',feats:new Set()};
+const state={beds:0,budget:4100,sort:'size',feats:new Set(),moveBy:'',availOnly:false};
 const cmpSet=new Set();
 $('#featRow').insertAdjacentHTML('beforeend',FEATS.map(f=>`<button class="chip" type="button" data-f="${f}" aria-pressed="false">${f}</button>`).join(''));
 $('#fplan').insertAdjacentHTML('beforeend',PLANS.map(p=>`<option value="${p.code}">${p.code}, ${p.sf} sq ft, ${p.bb}</option>`).join(''));
+function planLo(p){const us=unitsFor(p);return us.length?Math.min(...us.map(u=>u.price)):p.lo}
 function filtered(s=state){
-  let r=PLANS.filter(p=>(!s.beds||p.beds===s.beds)&&p.lo<=s.budget&&[...(s.feats||[])].every(f=>p.f.includes(f)));
+  let r=PLANS.filter(p=>(!s.beds||p.beds===s.beds)&&planLo(p)<=s.budget&&[...(s.feats||[])].every(f=>p.f.includes(f))&&(!(s.availOnly||s.moveBy)||unitsFor(p).length));
   const by={size:(a,b)=>a.sf-b.sf,sizeDesc:(a,b)=>b.sf-a.sf,price:(a,b)=>a.lo-b.lo||a.sf-b.sf,value:(a,b)=>a.ppsf-b.ppsf}[s.sort||'size'];
   return r.sort(by);
 }
-function cardHTML(p){const on=cmpSet.has(p.id);return `<article class="card" data-id="${p.id}" style="view-transition-name:plan${p.id}"><button class="hit" type="button" data-open="${p.id}" aria-label="${p.code}, ${p.sf} square feet, ${p.bb}, from ${money(p.lo)}. View room sizes">
+function availPill(p){if(!UNITS.length)return'';const us=unitsFor(p);if(!us.length)return`<span class="avail none"><i></i>Waitlist</span>`;const now=us.some(u=>u.date<=today0());return `<span class="avail"><i></i>${us.length} available${now?' now':''}</span>`}
+function cardHTML(p){const on=cmpSet.has(p.id);return `<article class="card" data-id="${p.id}" style="view-transition-name:plan${p.id}"><button class="hit" type="button" data-open="${p.id}" aria-label="${p.code}, ${p.sf} square feet, ${p.bb}, from ${money(planLo(p))}. View room sizes">
   <div class="pl"><span class="code">${p.code}</span><img src="img/plan${p.id}.webp" alt="" loading="lazy"></div>
   <div class="meta"><span class="sf num">${p.sf.toLocaleString()}<small>sq ft</small></span><span class="bb">${p.beds} bed<br>${p.baths} bath</span></div>
-  <div class="tags">${p.f.map(f=>`<span class="tag">${f}</span>`).join('')}</div>
-  <div class="price"><b class="num">From ${money(p.lo)}</b><span class="num">$${p.ppsf.toFixed(2)} per sq ft</span></div></button><button class="cmp" type="button" data-cmp="${p.id}" aria-pressed="${on}" aria-label="Compare ${p.code}">${on?'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 7.5l3 3 6-7"/></svg>Added':'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2v10M2 7h10"/></svg>Compare'}</button></article>`}
+  <div class="tags">${availPill(p)}${p.f.map(f=>`<span class="tag">${f}</span>`).join('')}</div>
+  <div class="price"><b class="num">From ${money(planLo(p))}</b><span class="num">$${(planLo(p)/p.sf).toFixed(2)} per sq ft</span></div></button><button class="cmp" type="button" data-cmp="${p.id}" aria-pressed="${on}" aria-label="Compare ${p.code}">${on?'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 7.5l3 3 6-7"/></svg>Added':'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2v10M2 7h10"/></svg>Compare'}</button><div class="t3wrap"><button class="t3b" type="button" data-3d="${p.id}" aria-label="3D tour of ${p.code}">${cube}<span>3D tour</span></button></div></article>`}
 function renderGrid(){
   const r=filtered();const g=$('#grid');
   const html=r.length?r.map(cardHTML).join(''):`<div class="empty"><h3 style="font-size:28px">No plans match those filters.</h3><p style="color:var(--muted)">Try a higher budget or fewer must haves.</p><button class="btn dark" type="button" data-reset>Show all 11 plans</button></div>`;
   const apply=()=>{g.innerHTML=html};
   if(document.startViewTransition&&!reduce){document.startViewTransition(apply)}else apply();
   $('#resLine').innerHTML=`Showing <b>${r.length}</b> of 11 plans`;
-  const dirty=state.beds||state.budget<4100||state.feats.size;
+  const dirty=state.beds||state.budget<4100||state.feats.size||state.moveBy||state.availOnly;
   $('#resetBtn').hidden=!dirty;
   const b=$('#budget');b.style.setProperty('--p',((b.value-b.min)/(b.max-b.min)*100)+'%');
 }
@@ -1454,10 +1682,11 @@ $('#bedSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(
 $('#budget').addEventListener('input',e=>{setBudget(+e.target.value);renderGrid()});
 $('#sort').addEventListener('change',e=>{state.sort=e.target.value;renderGrid()});
 $('#featRow').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;const f=b.dataset.f;state.feats.has(f)?state.feats.delete(f):state.feats.add(f);b.setAttribute('aria-pressed',state.feats.has(f));renderGrid()});
-function resetAll(){setBeds(0);setBudget(4100);state.feats.clear();$$('#featRow .chip').forEach(c=>c.setAttribute('aria-pressed','false'));renderGrid()}
+function resetAll(){setBeds(0);setBudget(4100);state.feats.clear();state.moveBy='';state.availOnly=false;$('#moveBy').value='';const ao=$('#availOnly');ao.setAttribute('aria-pressed','false');ao.style.background='rgba(255,255,255,.12)';ao.style.color='#fff';$$('#featRow .chip').forEach(c=>c.setAttribute('aria-pressed','false'));renderGrid()}
 $('#resetBtn').addEventListener('click',resetAll);
-$('#grid').addEventListener('click',e=>{if(e.target.closest('[data-reset]'))return resetAll();const m=e.target.closest('[data-cmp]');if(m)return toggleCmp(+m.dataset.cmp,m);const c=e.target.closest('[data-open]');if(c)openPlan(+c.dataset.open)});
+$('#grid').addEventListener('click',e=>{if(e.target.closest('[data-reset]'))return resetAll();const t3=e.target.closest('[data-3d]');if(t3)return open3d(+t3.dataset['3d']);const m=e.target.closest('[data-cmp]');if(m)return toggleCmp(+m.dataset.cmp,m);const c=e.target.closest('[data-open]');if(c)openPlan(+c.dataset.open)});
 renderGrid();
+loadUnits();
 
 /* hero finder */
 const fs={beds:0,budget:4100};
@@ -1472,7 +1701,7 @@ function openPlan(id){const p=PLANS.find(x=>x.id===id);curPlan=p;
   $('#dlgImg').src=`img/plan${p.id}.webp`;$('#dlgImg').alt=`Floor plan drawing for ${p.code}`;
   $('#dlgCode').textContent=p.code;$('#dlgTitle').innerHTML=`${p.sf.toLocaleString()}<small>sq ft</small>`;
   $('#dlgSub').textContent=`${p.bb}${p.f.length?'. '+p.f.join(', '):''}`;
-  $('#dlgPrice').textContent=`${money(p.lo)} to ${money(p.hi)}`;
+  renderDlgUnits(p);
   $('#dlgRooms').innerHTML=p.rooms.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
   $('#zoom').classList.remove('z');
   dlg.showModal();lenis&&lenis.stop();
@@ -1480,10 +1709,14 @@ function openPlan(id){const p=PLANS.find(x=>x.id===id);curPlan=p;
 dlg.addEventListener('close',()=>{lenis&&lenis.start()});
 $('#dlgClose').addEventListener('click',()=>dlg.close());
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
-$('#zoom').addEventListener('click',e=>{const z=$('#zoom'),r=z.getBoundingClientRect();z.style.setProperty('--ox',((e.clientX-r.left)/r.width*100)+'%');z.style.setProperty('--oy',((e.clientY-r.top)/r.height*100)+'%');z.classList.toggle('z')});
+$('#dlgT3').addEventListener('click',e=>{e.stopPropagation();open3d(curPlan.id)});
+$('#zoom').addEventListener('click',e=>{if(e.target.closest('#dlgT3'))return;const z=$('#zoom'),r=z.getBoundingClientRect();z.style.setProperty('--ox',((e.clientX-r.left)/r.width*100)+'%');z.style.setProperty('--oy',((e.clientY-r.top)/r.height*100)+'%');z.classList.toggle('z')});
 $('#dlgTour').addEventListener('click',()=>{dlg.close();$('#fplan').value=curPlan.code;
   const bv=curPlan.beds===1?'1 bedroom':curPlan.beds+' bedrooms';$$('#tBeds button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===bv));go('#tour')});
 
+function open3d(id){const p=PLANS.find(x=>x.id===id);if(!window.CWTour)return openPlan(id);
+  CWTour.open(id,{code:p.code,title:`${p.sf.toLocaleString()}<small>sq ft</small>`,sub:p.bb,onBook:()=>{curPlan=p;$('#dlgTour').click()},onApply:()=>{curPlan=p;$('#dlgApply').click()}})}
+$('#grid').addEventListener('pointerover',e=>{if(e.target.closest('.card')&&window.CWTour)CWTour.prefetch()},{once:true,passive:true});
 /* ---------- compare ---------- */
 const ftin=s=>{const m=s.match(/(\d+)'(\d+)"/);return m?+m[1]+m[2]/12:0};
 function largest(p){let best=null;p.rooms.forEach(r=>{if(/Foyer/.test(r[0]))return;const [a,b]=r[1].split(' x ');const ar=ftin(a)*ftin(b);if(!best||ar>best.ar)best={n:r[0],d:r[1],ar}});return best}
@@ -1634,7 +1867,7 @@ $('#faqList').innerHTML=FAQ.map((f,i)=>`<details class="q" ${i?'':'open'}><summa
   const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
   const plan=$('#apPlan'),move=$('#apMove');
   plan.insertAdjacentHTML('beforeend',PLANS.map(p=>`<option value="${p.code}">${p.code}, ${p.sf} sq ft, ${p.bb}</option>`).join(''));
-  move.innerHTML=months.map(m=>`<option>${m}</option>`).join('');
+  move.innerHTML=months.map(m=>`<option value="${m}">${m}</option>`).join('');
   function norm(){while(S.docs.length<S.adults)S.docs.push([]);S.docs.length=S.adults;if(S.who>=S.adults)S.who=0}
   function counts(){const need=S.adults*DOCS.length+(S.kids?1:0);let have=S.docs.reduce((a,d)=>a+d.filter(Boolean).length,0)+(S.kids&&S.kidDocs?1:0);return[have,need]}
   function meter(){const [a,b]=counts();const pct=Math.round(a/b*100);$('#apPct').textContent=pct+'%';$('#apBar').style.width=pct+'%';$('#apCount').textContent=`${a} of ${b} items ready`;
@@ -1724,7 +1957,7 @@ showPlaces(pk[0]);
     const day=v('#tDates'),sat=$('#tDates [aria-pressed="true"]')?.dataset.sat==='true';
     const name=$('#fname').value.trim().split(' ')[0];
     $('#formBox').innerHTML=`<div class="done"><span class="ok">${check}</span><h3>Thanks, ${name.replace(/[<>&"]/g,'')}. Your tour request is ready.</h3>
-      <div class="summary"><div><span>Day</span><b>${day}</b></div><div><span>Time</span><b>${v('#tTimes')}${sat?' (Saturday, by appointment)':''}</b></div><div><span>Looking for</span><b>${v('#tBeds')}</b></div><div><span>Floor plan</span><b>${$('#fplan').value||'Any'}</b></div><div><span>Move in</span><b>${$('#fmove').value}</b></div></div>
+      <div class="summary"><div><span>Day</span><b>${day}</b></div><div><span>Time</span><b>${v('#tTimes')}${sat?' (Saturday, by appointment)':''}</b></div><div><span>Looking for</span><b>${v('#tBeds')}</b></div><div><span>Floor plan</span><b>${$('#fplan').value||'Any'}${window.__tourUnit?', unit '+window.__tourUnit:''}</b></div><div><span>Move in</span><b>${$('#fmove').value}</b></div></div>
       <p class="fine">This design preview does not send requests yet. On the live site, this goes straight to the leasing office for confirmation. To lock in a time today, call 914 228 2887.</p>
       <button class="btn line" type="button" onclick="location.reload()">Start over</button></div>`;
   });
@@ -1774,10 +2007,14 @@ if(window.gsap&&window.ScrollTrigger&&!reduce){
 
   // statement word highlight
   const st=$('#statement');
+  let stTw=[];
+  function mkStatement(){stTw.forEach(t=>{t.scrollTrigger&&t.scrollTrigger.kill();t.kill()});stTw=[];
   const words=[];(function split(node){[...node.childNodes].forEach(n=>{if(n.nodeType===3){const frag=document.createDocumentFragment();n.textContent.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){frag.appendChild(document.createTextNode(w));return}const s=document.createElement('span');s.className='w';s.textContent=w;words.push(s);frag.appendChild(s)});n.replaceWith(frag)}else if(n.nodeType===1){split(n)}})})(st);
   document.documentElement.classList.add('js-hl');
-  gsap.to(words,{color:'#152F35',stagger:.1,ease:'none',scrollTrigger:{trigger:st,start:'top 82%',end:'bottom 45%',scrub:true}});
-  $$('.statement .serif .w').forEach(w=>gsap.to(w,{color:'#1D4850',scrollTrigger:{trigger:st,start:'bottom 60%',end:'bottom 45%',scrub:true}}));
+  stTw.push(gsap.to(words,{color:'#152F35',stagger:.1,ease:'none',scrollTrigger:{trigger:st,start:'top 82%',end:'bottom 45%',scrub:true}}));
+  $$('.statement .serif .w').forEach(w=>stTw.push(gsap.to(w,{color:'#1D4850',scrollTrigger:{trigger:st,start:'bottom 60%',end:'bottom 45%',scrub:true}})))}
+  mkStatement();
+  window.CWstatement=html=>{st.innerHTML=html;mkStatement();ScrollTrigger.refresh()};
 
   // stat count up (resting value is the final number)
   $$('[data-count]').forEach(el=>{const end=+el.dataset.count;const o={v:0};ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:()=>gsap.fromTo(o,{v:0},{v:end,duration:1.6,ease:'power3.out',onUpdate:()=>el.textContent=Math.round(o.v)})})});
@@ -1811,6 +2048,446 @@ if(window.gsap&&window.ScrollTrigger&&!reduce){
   $$('.ch').forEach(c=>c.style.scrollSnapAlign='center');
   $('#chNav').addEventListener('click',e=>{const b=e.target.closest('button');if(b){$('#ch'+b.dataset.i).scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});$$('#chNav button').forEach(x=>x.classList.toggle('on',x===b))}});
 }
+})();
+</script>
+<script>
+(()=>{
+const TD=document.getElementById('tourDlg');if(!TD)return;
+const q=s=>TD.querySelector(s),qa=s=>[...TD.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine=matchMedia('(pointer:fine)').matches;
+const HW=8.5,SILL=2.6,HEAD=7.0;
+let ready=null,R,scene,cam,ctl,sun,glow,model=null,data=null,meta=null,planId=0,mode='free',tok=0,cur=null,stop=-1,tags=[],hintT=0,lastW=0,lastH=0,reqId=0;
+const V={tx:0,ty:0,tz:0,az:.6,pol:.9,dist:60};
+const T=k=>k;
+function load(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.async=true;s.onload=res;s.onerror=()=>rej(new Error('load '+src));document.head.appendChild(s)})}
+function need(){if(!ready)ready=(window.THREE?Promise.resolve():load('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js')).then(()=>THREE.OrbitControls?0:load('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js')).catch(e=>{ready=null;throw e});return ready}
+function glOK(){try{const c=document.createElement('canvas');return!!(window.WebGLRenderingContext&&(c.getContext('webgl2')||c.getContext('webgl')))}catch(e){return false}}
+function init(){
+  R=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
+  R.setPixelRatio(Math.min(devicePixelRatio||1,2));
+  R.outputEncoding=THREE.sRGBEncoding;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.08;
+  R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+  q('#t3').appendChild(R.domElement);R.domElement.setAttribute('aria-label','Interactive 3D model of the apartment');
+  scene=new THREE.Scene();
+  cam=new THREE.PerspectiveCamera(40,1,.3,800);
+  ctl=new THREE.OrbitControls(cam,R.domElement);
+  Object.assign(ctl,{enableDamping:true,dampingFactor:.08,enablePan:false,minPolarAngle:0,maxPolarAngle:1.3,rotateSpeed:.65,zoomSpeed:.9,autoRotateSpeed:.55,minDistance:10,maxDistance:140});
+  ctl.addEventListener('start',()=>{if(mode==='tour')pause();else if(mode==='fly'){cur&&cur.kill();tok++;mode='free';ctl.enabled=true}ctl.autoRotate=false;hint(false);endCard(false)});
+  scene.add(new THREE.HemisphereLight(0xffffff,0xc9bfae,.62));
+  sun=new THREE.DirectionalLight(0xffeed2,1.55);sun.position.set(-24,50,32);sun.castShadow=true;
+  const ss=Math.min(innerWidth,innerHeight)<700?1024:2048;sun.shadow.mapSize.set(ss,ss);sun.shadow.bias=-.0005;sun.shadow.normalBias=.03;
+  Object.assign(sun.shadow.camera,{left:-32,right:32,top:32,bottom:-32,near:1,far:160});
+  scene.add(sun,sun.target);
+  const fill=new THREE.DirectionalLight(0xcfe0ff,.32);fill.position.set(34,22,-28);scene.add(fill);
+  const cv=document.createElement('canvas');cv.width=cv.height=256;const g=cv.getContext('2d');const gr=g.createRadialGradient(128,128,8,128,128,128);gr.addColorStop(0,'rgba(0,0,0,.55)');gr.addColorStop(.55,'rgba(0,0,0,.22)');gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(0,0,256,256);
+  glow=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cv),transparent:true,depthWrite:false}));glow.rotation.x=-Math.PI/2;glow.position.y=-1.2;scene.add(glow);
+  addEventListener('resize',size);
+}
+function size(){if(!R)return;const w=TD.clientWidth||innerWidth,h=TD.clientHeight||innerHeight;if(w===lastW&&h===lastH)return;lastW=w;lastH=h;R.setSize(w,h);cam.aspect=w/h;cam.fov=w/h<.8?54:w/h<1.2?46:38;cam.updateProjectionMatrix()}
+const shp=r=>{const s=new THREE.Shape();r.forEach((p,i)=>i?s.lineTo(p[0],-p[1]):s.moveTo(p[0],-p[1]));return s};
+const pth=r=>{const s=new THREE.Path();r.forEach((p,i)=>i?s.lineTo(p[0],-p[1]):s.moveTo(p[0],-p[1]));return s};
+function ext(poly,depth){const s=shp(poly[0]);for(let k=1;k<poly.length;k++)s.holes.push(pth(poly[k]));const g=new THREE.ExtrudeGeometry(s,{depth,bevelEnabled:false,curveSegments:2});g.rotateX(-Math.PI/2);return g}
+function box(w,h,d,x,y,z,mats){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mats);m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;return m}
+function build(d,tex){
+  tex.encoding=THREE.sRGBEncoding;tex.anisotropy=Math.min(8,R.capabilities.getMaxAnisotropy());tex.repeat.set(1/d.w,1/d.h);tex.offset.set(.5,.5);
+  const M={floor:new THREE.MeshStandardMaterial({map:tex,roughness:.88,alphaTest:.5}),cap:new THREE.MeshStandardMaterial({color:0x183341,roughness:.55}),wall:new THREE.MeshStandardMaterial({color:0xefe9e1,roughness:.95}),ftop:new THREE.MeshStandardMaterial({map:tex,roughness:.72}),fside:new THREE.MeshStandardMaterial({color:0xe7e2da,roughness:.85}),glass:new THREE.MeshStandardMaterial({color:0xbfe2ee,roughness:.05,metalness:.2,transparent:true,opacity:.38,depthWrite:false}),frame:new THREE.MeshStandardMaterial({color:0xffffff,roughness:.5}),slabT:new THREE.MeshStandardMaterial({color:0xece6dd,roughness:.9}),slabS:new THREE.MeshStandardMaterial({color:0xb9ae9f,roughness:.9})};
+  ['cap','wall','fside','glass','frame','slabT','slabS'].forEach(k=>M[k].color.convertSRGBToLinear());
+  const W6=[M.wall,M.wall,M.cap,M.wall,M.wall,M.wall];
+  const G=new THREE.Group(),walls=new THREE.Group(),furn=new THREE.Group();
+  const slab=new THREE.Mesh(ext([d.foot],1.1),[M.slabT,M.slabS]);slab.position.y=-1.11;slab.receiveShadow=true;G.add(slab);
+  const fg=new THREE.ShapeGeometry(shp(d.foot));fg.rotateX(-Math.PI/2);const floor=new THREE.Mesh(fg,M.floor);floor.position.y=.005;floor.receiveShadow=true;G.add(floor);
+  d.walls.forEach(p=>{const m=new THREE.Mesh(ext(p,HW),[M.cap,M.wall]);m.castShadow=m.receiveShadow=true;walls.add(m)});
+  d.win.forEach(([x,z,w,dp])=>{const hz=w>=dp;walls.add(box(w,SILL,dp,x,SILL/2,z,W6));walls.add(box(w,HW-HEAD,dp,x,(HEAD+HW)/2,z,W6));
+    const gl=new THREE.Mesh(new THREE.BoxGeometry(hz?w:.12,HEAD-SILL,hz?.12:dp),M.glass);gl.position.set(x,(SILL+HEAD)/2,z);walls.add(gl);
+    const n=Math.max(1,Math.round((hz?w:dp)/3.2));for(let k=1;k<n;k++){const o=-((hz?w:dp)/2)+k*(hz?w:dp)/n;const mu=new THREE.Mesh(new THREE.BoxGeometry(hz?.14:.2,HEAD-SILL,hz?.2:.14),M.frame);mu.position.set(hz?x+o:x,(SILL+HEAD)/2,hz?z:z+o);walls.add(mu)}});
+  d.door.forEach(([x,z,w,dp])=>walls.add(box(w,HW-HEAD,dp,x,(HEAD+HW)/2,z,W6)));
+  d.furn.forEach(([h,p])=>{const m=new THREE.Mesh(ext(p,h),[M.ftop,M.fside]);m.castShadow=m.receiveShadow=true;furn.add(m)});
+  G.add(walls,furn);G.userData={walls,furn,M,tex};
+  const r=Math.hypot(d.w,d.h)/2;glow.scale.set(r*3.2,r*3.2,1);
+  Object.assign(sun.shadow.camera,{left:-r*1.15,right:r*1.15,top:r*1.15,bottom:-r*1.15});sun.shadow.camera.updateProjectionMatrix();
+  return G;
+}
+function dispose(g){if(!g)return;scene.remove(g);const mats=new Set();g.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material)[].concat(o.material).forEach(m=>mats.add(m))});mats.forEach(m=>m.dispose());g.userData.tex&&g.userData.tex.dispose()}
+/* camera math */
+function apply(){const s=Math.sin(V.pol);cam.position.set(V.tx+V.dist*s*Math.sin(V.az),V.ty+V.dist*Math.cos(V.pol),V.tz+V.dist*s*Math.cos(V.az));cam.lookAt(V.tx,V.ty,V.tz)}
+function read(){const t=ctl.target,o=cam.position.clone().sub(t);V.tx=t.x;V.ty=t.y;V.tz=t.z;V.dist=o.length();V.pol=Math.acos(Math.min(1,Math.max(-1,o.y/V.dist)));V.az=Math.atan2(o.x,o.z)}
+function sync(){ctl.target.set(V.tx,V.ty,V.tz);apply();ctl.update()}
+function fit(top){const vf=cam.fov*Math.PI/180,hf=2*Math.atan(Math.tan(vf/2)*cam.aspect),f=Math.min(vf,hf);if(top){const uv=cam.aspect<1?.66:.74;return Math.max(data.h/2/Math.tan(vf/2)/uv,data.w/2/Math.tan(hf/2)/.94)+HW}return Math.hypot(data.w,data.h)/2/Math.tan(f/2)*1.02}
+const ctr=()=>{const f=data.foot;let a=1e9,b=-1e9,c=1e9,e=-1e9;f.forEach(([x,z])=>{a=Math.min(a,x);b=Math.max(b,x);c=Math.min(c,z);e=Math.max(e,z)});return[(a+b)/2,(c+e)/2]};
+const home=()=>{const [x,z]=ctr();return{tx:x,ty:0,tz:z,az:.62,pol:cam.aspect<1?.8:.9,dist:fit(false)*(cam.aspect<1?.86:1)}};
+const topv=()=>{const [x,z]=ctr();return{tx:x,ty:0,tz:z+(cam.aspect<1?1.2:.6),az:0,pol:.0001,dist:fit(true)}};
+const RC={ray:null};
+function roomView(r){const fx=r[4],fz=r[5];let dx=fx,dz=fz;const L=Math.hypot(dx,dz);if(L<2){dx=0;dz=1}else{dx/=L;dz/=L}
+  const m=(r[1]||'').match(/(\d+)'(\d+)"\s*x\s*(\d+)'(\d+)"/);const big=m?Math.max(+m[1]+m[2]/12,+m[3]+m[4]/12):10;
+  const k=cam.aspect<1?Math.min(1.6,1/(cam.aspect*1.45)):1;const dist=Math.max(22,big*1.5)*k,pol=.56;
+  const pref=Math.atan2(-dx,-dz);
+  if(!RC.ray)RC.ray=new THREE.Raycaster();const ray=RC.ray,walls=model.userData.walls.children.filter(o=>!o.material.transparent);
+  const o=new THREE.Vector3(),dir=new THREE.Vector3();let best=pref+.18,bs=1e9;
+  for(let i=0;i<24;i++){const az=pref+i/24*Math.PI*2;const s=Math.sin(pol);const cp=new THREE.Vector3(fx+dist*s*Math.sin(az),1.6+dist*Math.cos(pol),fz+dist*s*Math.cos(az));let hits=0;
+    for(const [ox,oz] of [[0,0],[2.2,0],[-2.2,0],[0,2.2],[0,-2.2]]){o.set(fx+ox,2.5,fz+oz);dir.copy(cp).sub(o);const len=dir.length();dir.normalize();ray.set(o,dir);ray.far=len;hits+=ray.intersectObjects(walls,false).length?1:0}
+    let da=Math.abs(((az-pref)%(2*Math.PI)+3*Math.PI)%(2*Math.PI)-Math.PI);const sc=hits*10+da*2.2;if(sc<bs){bs=sc;best=az}}
+  return{tx:fx,ty:1.6,tz:fz,az:best,pol,dist}}
+function tw(to,dur,ease,my){return new Promise(res=>{if(my!==tok)return;let d=to.az-V.az;if(to.az!==undefined){while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;to=Object.assign({},to,{az:V.az+d})}
+  cur=gsap.to(V,Object.assign({},to,{duration:reduce?.01:dur,ease:ease||'power3.inOut',onUpdate:apply,onComplete:()=>{cur=null;my===tok&&res()}}))})}
+async function flyTo(to,dur){const my=++tok;cur&&cur.kill();read();mode='fly';ctl.enabled=false;ctl.autoRotate=false;await tw(to,dur||1.6,'power3.inOut',my);if(my!==tok)return;mode='free';ctl.enabled=true;sync()}
+/* tour */
+function setStop(i){stop=i;TD.classList.toggle('touring',i>=0);const rs=data.rooms;tags.forEach((t,k)=>{t.classList.toggle('on',k===i);t.classList.toggle('dim',i>=0&&k!==i)});
+  qa('#t3Rooms button').forEach((b,k)=>b.setAttribute('aria-pressed',k===i));
+  const cap=q('#t3Cap');if(i<0){cap.classList.remove('on');return}
+  const r=rs[i];q('#t3Step').textContent=`${String(i+1).padStart(2,'0')} / ${String(rs.length).padStart(2,'0')}`;q('#t3Room').textContent=T(r[0]);q('#t3Dim').textContent=r[1]||'';
+  qa('#t3Bar i').forEach((b,k)=>{b.classList.toggle('done',k<i);const bb=b.firstChild;gsap.killTweensOf(bb);gsap.set(bb,{scaleX:k<i?1:0})});cap.classList.add('on');
+  const btn=q(`#t3Rooms button[data-i="${i}"]`);btn&&btn.scrollIntoView({block:'nearest',inline:'center',behavior:reduce?'auto':'smooth'})}
+function playBtn(on){const b=q('#t3Play');b.querySelector('span').textContent=on?T('Pause'):(stop>=0&&stop<data.rooms.length-1?T('Resume'):T('Play walkthrough'));b.querySelector('svg').innerHTML=on?'<path d="M4 2.5h3v11H4zM9 2.5h3v11H9z"/>':'<path d="M4 2.5v11l9.5-5.5z"/>'}
+async function play(from){const my=++tok;cur&&cur.kill();read();mode='tour';ctl.enabled=false;ctl.autoRotate=false;hint(false);endCard(false);setView('3d',true);playBtn(true);cut(true);
+  const rs=data.rooms;let i=from==null?(stop<0||stop>=rs.length-1?0:stop):from;
+  for(;i<rs.length;i++){if(my!==tok)return;setStop(i);await tw(roomView(rs[i]),i===0&&V.dist>30?2.4:1.9,'power3.inOut',my);if(my!==tok)return;
+    const bar=q(`#t3Bar i:nth-child(${i+1}) b`);bar&&gsap.to(bar,{scaleX:1,duration:reduce?.01:2.8,ease:'none'});
+    await tw({az:V.az+.3,dist:V.dist*.92},2.8,'sine.inOut',my)}
+  if(my!==tok)return;setStop(-1);playBtn(false);cut(false);await tw(home(),2.2,'power3.inOut',my);if(my!==tok)return;mode='free';ctl.enabled=true;sync();ctl.autoRotate=!reduce;stop=-1;playBtn(false);endCard(true)}
+function pause(){tok++;cur&&cur.kill();cur=null;gsap.killTweensOf(qa('#t3Bar b'));mode='free';ctl.enabled=true;sync();playBtn(false)}
+async function goRoom(i){pause();const r=data.rooms[i];setStop(i);endCard(false);cut(true);await flyTo(roomView(r),1.5);playBtn(false)}
+function cut(on){if(!model)return;const w=model.userData.walls;gsap.to(w.scale,{y:on?.46:1,duration:reduce?.01:1.1,ease:'power3.inOut',overwrite:true})}
+function endCard(on){q('#t3End').classList.toggle('on',!!on)}
+function hint(on){clearTimeout(hintT);q('#t3Hint').classList.toggle('gone',!on);if(on)hintT=setTimeout(()=>hint(false),4200)}
+function setView(v,silent){qa('.t3-seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));if(silent)return;pause();setStop(-1);endCard(false);cut(false);flyTo(v==='top'?topv():home(),1.4)}
+/* tags */
+const P=new (function(){this.v=null})();
+function makeTags(){const box=q('#t3Tags');box.innerHTML='';tags=data.rooms.map((r,i)=>{const b=document.createElement('button');b.type='button';b.className='t3-tag';b.textContent=T(r[0]);b.dataset.i=i;b.addEventListener('click',()=>goRoom(i));box.appendChild(b);b._p=new THREE.Vector3(r[2],HW+1.4,r[3]);return b})}
+function placeTags(){const w=lastW,h=lastH;const v=P.v||(P.v=new THREE.Vector3());const sy=model?model.userData.walls.scale.y:1;for(const t of tags){v.copy(t._p);v.y=HW*sy+1.4;v.project(cam);if(v.z>1||v.x<-1.2||v.x>1.2||v.y<-1.2||v.y>1.2){t.classList.add('off');continue}t.classList.remove('off');t.style.transform=`translate3d(${(v.x*.5+.5)*w}px,${(-v.y*.5+.5)*h}px,0) translate(-50%,-130%)`}}
+function loop(){if(mode==='free')ctl.update();R.render(scene,cam);placeTags()}
+/* open */
+async function open(id,m){meta=m||{};planId=id;const my=++reqId;
+  q('#t3Code').textContent=meta.code||'';q('#t3Title').innerHTML=meta.title||'';q('#t3Sub').textContent=meta.sub||'';q('#t3EndK').textContent=meta.code||'';
+  const L=q('#t3Load');L.classList.remove('gone');L.innerHTML=`<div><div class="ring"></div><b>${T('Building your 3D tour')}</b><span>${T('Walls, windows and furniture, to scale')}</span></div>`;
+  q('#t3Cap').classList.remove('on');endCard(false);q('#t3Rooms').innerHTML='';q('#t3Tags').innerHTML='';tags=[];
+  const fb=q('.t3-fallback');fb&&fb.remove();
+  if(!TD.open){TD.showModal();document.documentElement.style.overflow='hidden'}
+  if(!glOK()){return fail(true)}
+  try{
+    const [,d]=await Promise.all([need(),fetch(`img/tour/p${id}.json`).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})]);
+    if(my!==reqId)return;
+    if(!R)init();size();
+    const tex=await new Promise((res,rej)=>new THREE.TextureLoader().load(`img/tour/f${id}.webp`,res,undefined,rej));
+    if(my!==reqId){tex.dispose();return}
+    pause();dispose(model);data=d;model=build(d,tex);scene.add(model);stop=-1;
+    q('#t3Rooms').innerHTML=d.rooms.map((r,i)=>`<button type="button" data-i="${i}" aria-pressed="false">${T(r[0])}</button>`).join('');
+    q('#t3Bar').innerHTML=d.rooms.map(()=>'<i><b></b></i>').join('');
+    makeTags();playBtn(false);setView('3d',true);
+    R.setAnimationLoop(loop);
+    L.classList.add('gone');
+    const H0=home();Object.assign(V,{tx:H0.tx,ty:0,tz:H0.tz,az:H0.az-1.1,pol:.05,dist:H0.dist*1.35});apply();ctl.target.set(H0.tx,0,H0.tz);
+    const {walls,furn}=model.userData;
+    tags.forEach(t=>t.style.opacity=0);
+    if(!reduce){walls.children.forEach(o=>o.scale.y=.001);furn.children.forEach(o=>o.scale.y=.001);
+      gsap.to(walls.children.map(o=>o.scale),{y:1,duration:1.1,ease:'expo.out',stagger:{each:.018,from:'random'},delay:.25});
+      gsap.to(furn.children.map(o=>o.scale),{y:1,duration:.8,ease:'back.out(1.6)',stagger:.03,delay:.9})}
+    gsap.to(tags,{opacity:1,duration:.6,stagger:.06,delay:reduce?0:1.6,clearProps:'opacity'});
+    await flyTo(H0,reduce?.01:2.6);
+    if(my!==reqId||mode!=='free')return;ctl.autoRotate=!reduce;hint(true);
+  }catch(e){if(my===reqId)fail(false)}
+}
+function fail(nogl){const L=q('#t3Load');L.innerHTML=`<div><b>${nogl?T('3D is not supported on this device'):T('The 3D tour could not load')}</b><span>${nogl?T('Here is the floor plan instead.'):T('Check your connection and try again.')}</span>${nogl?'':`<button class="btn retry" type="button" id="t3Retry">${T('Try again')}</button>`}</div>`;
+  const r=q('#t3Retry');r&&r.addEventListener('click',()=>open(planId,meta));
+  if(nogl){L.classList.add('gone');const f=document.createElement('div');f.className='t3-fallback';f.innerHTML=`<img src="img/plan${planId}.webp" alt="Floor plan">`;TD.appendChild(f)}}
+function close(){TD.open&&TD.close()}
+TD.addEventListener('close',()=>{tok++;reqId++;cur&&cur.kill();mode='free';if(R){R.setAnimationLoop(null);ctl&&(ctl.enabled=true)}document.documentElement.style.overflow='';endCard(false)});
+q('#t3Close').addEventListener('click',close);
+q('#t3Play').addEventListener('click',()=>{if(!data)return;mode==='tour'?pause():play()});
+q('#t3Reset').addEventListener('click',()=>{if(!data)return;setView('3d',true);pause();setStop(-1);endCard(false);cut(false);flyTo(home(),1.3).then(()=>{if(mode==='free')ctl.autoRotate=!reduce})});
+q('.t3-seg').addEventListener('click',e=>{const b=e.target.closest('button');if(b&&data)setView(b.dataset.v)});
+q('#t3Rooms').addEventListener('click',e=>{const b=e.target.closest('button');if(b)goRoom(+b.dataset.i)});
+q('#t3Prev').addEventListener('click',()=>{if(!data)return;const i=Math.max(0,stop-1);mode==='tour'?play(i):goRoom(i)});
+q('#t3Next').addEventListener('click',()=>{if(!data)return;const i=Math.min(data.rooms.length-1,stop+1);mode==='tour'?play(i):goRoom(i)});
+q('#t3Replay').addEventListener('click',()=>play(0));
+q('#t3Book').addEventListener('click',()=>{close();meta.onBook&&meta.onBook()});
+q('#t3Apply').addEventListener('click',()=>{close();meta.onApply&&meta.onApply()});
+TD.addEventListener('keydown',e=>{if(!data||e.target.closest('input,textarea,select'))return;if(e.key===' '&&!e.target.closest('button')){e.preventDefault();mode==='tour'?pause():play()}if(e.key==='ArrowRight')q('#t3Next').click();if(e.key==='ArrowLeft')q('#t3Prev').click()});
+q('#t3HintTx').textContent=fine?'Drag to look around, scroll to zoom':'Drag to look around, pinch to zoom';
+window.CWTour={open,close,prefetch:()=>{if(glOK())need().catch(()=>{})}};
+})();
+</script>
+<script>
+(()=>{
+const ES={
+"Crestwood Lake home":"Inicio de Crestwood Lake","Main":"Principal",
+"Amenities":"Amenidades","Site plan":"Mapa","Floor plans":"Planos","Apply":"Solicitar","Reviews":"Reseñas","Commute":"Transporte","FAQ":"Preguntas",
+"Weather at Crestwood Lake":"El clima en Crestwood Lake","Right now at Crestwood Lake":"Ahora en Crestwood Lake","Today":"Hoy","Sunset over the lake":"Atardecer sobre el lago",
+"Clear":"Despejado","Mostly clear":"Mayormente despejado","Partly cloudy":"Parcialmente nublado","Cloudy":"Nublado","Fog":"Niebla","Drizzle":"Llovizna","Rain":"Lluvia","Snow":"Nieve","Showers":"Chubascos","Snow showers":"Chubascos de nieve","Thunderstorms":"Tormentas",
+"Book a tour":"Agende una visita","Open menu":"Abrir menú",
+"Monday to Friday, 9am to 5pm. Saturdays by appointment.":"Lunes a viernes, de 9am a 5pm. Sábados con cita.",
+"Welcome":"Bienvenida",
+"Aerial view of Crestwood Lake at dusk, with brick garden apartment buildings surrounding the lake":"Vista aérea de Crestwood Lake al atardecer, con edificios de ladrillo rodeando el lago",
+"Leasing office open now until 5pm":"Oficina de alquiler abierta ahora hasta las 5pm",
+"60 acres.":"60 acres.","A private":"Un lago","lake.":"privado.","Room to grow.":"Espacio para crecer.",
+"Spacious 1, 2 and 3 bedroom apartments in northeast Yonkers, surrounded by lawns, a meandering brook and a lake of your own. Heat, hot water and cooking gas are included in your rent.":"Amplios apartamentos de 1, 2 y 3 dormitorios en el noreste de Yonkers, rodeados de jardines, un arroyo y un lago propio. La calefacción, el agua caliente y el gas para cocinar están incluidos en la renta.",
+"Explore floor plans":"Ver los planos","Walk the grounds":"Recorra el complejo","4.5 on Google":"4.5 en Google","from 744 resident reviews":"en 744 reseñas de residentes",
+"Quick apartment finder":"Buscador rápido de apartamentos","Find your fit":"Encuentre el suyo","Pick a size and budget. We will show you every layout that works.":"Elija tamaño y presupuesto. Le mostraremos cada distribución que le funcione.",
+"Bedrooms":"Dormitorios","Any":"Cualquiera","Starting rent up to":"Renta inicial hasta","View":"Ver","floor plans":"planos","floor plan":"plano",
+"A rental garden community":"Una comunidad de alquiler entre jardines",
+"acres of lawns, lake and streams":"acres de jardines, lago y arroyos","floor plans, from 632 to 1,017 square feet":"planos, de 632 a 1,017 pies cuadrados","min":"min",
+"Metro North express from Crestwood to Grand Central":"Metro North exprés de Crestwood a Grand Central","emergency maintenance, all year":"mantenimiento de emergencia, todo el año",
+"Included and available":"Incluido y disponible","Heat included":"Calefacción incluida","Hot water included":"Agua caliente incluida","Cooking gas included":"Gas para cocinar incluido","Pet friendly":"Se aceptan mascotas","Private garages":"Garajes privados","60 acres":"60 acres","A private lake":"Un lago privado","24/7 maintenance":"Mantenimiento 24/7",
+"A backyard unlike":"Un patio como","any other.":"ningún otro.",
+"Expansive green spaces, tree lined paths and a private lake. Life here moves at a different pace, and it all starts at your front door.":"Amplias áreas verdes, senderos arbolados y un lago privado. Aquí la vida va a otro ritmo, y todo empieza en la puerta de su casa.",
+"Amenity chapters":"Secciones de amenidades","Wellness":"Bienestar","Kids":"Niños","Outdoors":"Aire libre","Everyday ease":"Vida práctica","Community":"Comunidad",
+"Crestwood Lake framed by trees on a sunny day":"Crestwood Lake rodeado de árboles en un día soleado",
+"Breathe in, walk out,":"Respire, salga,","unwind.":"relájese.",
+"Home should be a place where you can slow down. Crestwood Lake is designed around open air and natural flow.":"Su hogar debe ser un lugar para bajar el ritmo. Crestwood Lake está pensado alrededor del aire libre y la naturaleza.",
+"60 acres of green space for fresh air and morning strolls":"60 acres de áreas verdes para respirar aire fresco y caminar por la mañana",
+"Curved streets and walkways that encourage movement and safety":"Calles curvas y senderos que invitan a caminar con seguridad",
+"A tranquil private lake, perfect for quiet reflection":"Un lago privado y tranquilo, ideal para relajarse",
+"Playground with slides and climbing structures among the buildings":"Área de juegos con toboganes y estructuras para trepar entre los edificios",
+"Room to play,":"Espacio para jugar,","space to grow.":"espacio para crecer.",
+"Built for families who want their kids to have room to run, explore and just be kids, in a safe and welcoming community.":"Pensado para familias que quieren que sus hijos tengan espacio para correr, explorar y ser niños, en una comunidad segura y acogedora.",
+"Playgrounds designed for adventure and imagination":"Áreas de juegos pensadas para la aventura y la imaginación","School bus stops within the property":"Paradas de autobús escolar dentro del complejo","Wide open lawns for games and everyday fun":"Amplios jardines para jugar y divertirse todos los días",
+"Benches on a lawn under large shade trees beside the water":"Bancas en el jardín bajo grandes árboles junto al agua",
+"Step outside and find space that feels personal, whether you are catching up with neighbors or taking in the fresh air.":"Salga y encuentre un espacio que se siente suyo, ya sea para conversar con los vecinos o para tomar aire fresco.",
+"Tree lined walking paths for quiet evening strolls":"Senderos arbolados para caminar tranquilo por la tarde","Scenic views of the lake, changing with the seasons":"Vistas al lago que cambian con cada estación","Benches and open areas for reading and relaxing":"Bancas y áreas abiertas para leer y descansar",
+"Clean on site laundry room with a row of front loading machines":"Lavandería limpia en el complejo con una fila de lavadoras de carga frontal",
+"Designed for":"Pensado para","everyday ease.":"su día a día.",
+"Amenities that fit into your routine, so daily life stays simple.":"Amenidades que se adaptan a su rutina para que la vida diaria sea sencilla.",
+"On site laundry rooms that are clean and functional":"Lavanderías en el complejo, limpias y funcionales","Surface lots, street parking and private garages for rent":"Estacionamientos abiertos, estacionamiento en la calle y garajes privados en alquiler","Steps from Central Avenue for groceries, cafés and essentials":"A pasos de Central Avenue para compras, cafés y lo esencial",
+"A family laughing together outdoors under the trees":"Una familia riendo al aire libre bajo los árboles",
+"A neighborhood that feels":"Un vecindario que se siente","like home.":"como en casa.",
+"Familiar faces greet you, and community traditions bring people together.":"Caras conocidas lo saludan, y las tradiciones de la comunidad unen a la gente.",
+"Seasonal gatherings to celebrate the moments that matter":"Reuniones de temporada para celebrar los momentos importantes","A naturally social atmosphere where friendships form":"Un ambiente social donde nacen amistades","A long established community where people put down roots":"Una comunidad con historia donde la gente echa raíces",
+"Walk the":"Recorra el","grounds.":"complejo.",
+"Tap any point to see what is there. Laundry rooms, playgrounds, parking and the lake are all a short walk from every building.":"Toque cualquier punto para ver qué hay. Lavanderías, áreas de juegos, estacionamiento y el lago quedan a poca distancia de cada edificio.",
+"Filter the map":"Filtrar el mapa","All":"Todo","Nature":"Naturaleza","Family":"Familia","Everyday":"Día a día","Transit":"Transporte",
+"The brook":"El arroyo","Shoreview Lawn":"Jardín Shoreview","Bird Garden":"Jardín de las aves","Pine Grove":"Pinar","Park and picnic tables":"Parque y mesas de picnic","Playground, Beaumont Circle":"Área de juegos, Beaumont Circle","Playground, lake side":"Área de juegos, junto al lago","Playground, west side":"Área de juegos, lado oeste","Leasing and Management Office":"Oficina de alquiler y administración","Community Lounge":"Salón comunitario","Laundry rooms":"Lavanderías","Garages":"Garajes","Manhattan Express Bus":"Autobús exprés a Manhattan","Westchester Express Bus":"Autobús exprés de Westchester",
+"Illustrated site plan of Crestwood Lake showing buildings, roads, parking, the brook and Crestwood Lake":"Mapa ilustrado de Crestwood Lake con edificios, calles, estacionamiento, el arroyo y el lago",
+"The private lake at the heart of the property, ringed by lawns and shade trees.":"El lago privado en el corazón del complejo, rodeado de jardines y árboles de sombra.",
+"A meandering stream that winds through the center of Beaumont Circle.":"Un arroyo que serpentea por el centro de Beaumont Circle.",
+"A picnic area on the open lawn above the lake shore.":"Un área de picnic en el jardín abierto sobre la orilla del lago.",
+"A quiet planted corner on the northeast side of the grounds.":"Un rincón tranquilo con plantas en el lado noreste del complejo.",
+"A stand of pines where Beaumont Circle meets the lake path.":"Un grupo de pinos donde Beaumont Circle se une al sendero del lago.",
+"An open green with picnic tables off Nassau Road.":"Un área verde abierta con mesas de picnic junto a Nassau Road.",
+"One of three children's playgrounds on the property.":"Una de las tres áreas de juegos infantiles del complejo.",
+"A playground close to the lake and Shoreview Lawn.":"Un área de juegos cerca del lago y del jardín Shoreview.",
+"A playground near the brook on the west side of the property.":"Un área de juegos cerca del arroyo, en el lado oeste del complejo.",
+"Building 90 on Beaumont Circle. Monday to Friday, 9am to 5pm, Saturdays by appointment.":"Edificio 90 en Beaumont Circle. Lunes a viernes, de 9am a 5pm, sábados con cita.",
+"Building 24, near Crisfield Street and Andover Road.":"Edificio 24, cerca de Crisfield Street y Andover Road.",
+"On site laundry rooms are spread across the property, marked L on the full site plan.":"Hay lavanderías en todo el complejo, marcadas con L en el mapa completo.",
+"Private garages for rent, with assigned parking and open lots throughout the grounds.":"Garajes privados en alquiler, con estacionamiento asignado y lotes abiertos en todo el complejo.",
+"Shopping right at the edge of the property on Central Park Avenue.":"Tiendas justo al borde del complejo, sobre Central Park Avenue.",
+"BxM4 express service to Fifth Avenue, on Central Park Avenue.":"Servicio exprés BxM4 a la Quinta Avenida, sobre Central Park Avenue.",
+"Bee Line service along Central Park Avenue.":"Servicio Bee Line por Central Park Avenue.",
+"Building numbers and locations follow the official Crestwood Lake site plan.":"Los números y ubicaciones de los edificios siguen el mapa oficial de Crestwood Lake.",
+"Floor plans and pricing":"Planos y precios","Space that works,":"Espacio que funciona,","details that matter.":"detalles que importan.",
+"Eleven layouts, generous rooms and ample closet space. Tap any plan to see every room size.":"Once distribuciones, habitaciones amplias y buen espacio de clósets. Toque cualquier plano para ver la medida de cada habitación.",
+"1 Bed":"1 dorm.","2 Bed":"2 dorm.","3 Bed":"3 dorm.","Sort":"Ordenar","Size, small to large":"Tamaño, de menor a mayor","Size, large to small":"Tamaño, de mayor a menor","Rent, low to high":"Renta, de menor a mayor","Best price per sq ft":"Mejor precio por pie²",
+"Must have":"Indispensable","Home office":"Oficina en casa","Walk in closet":"Vestidor","Separate dining":"Comedor separado","1.5 baths":"1.5 baños",
+"Checking the leasing office":"Consultando la oficina de alquiler","Move in by":"Mudanza antes de","Any move in date":"Cualquier fecha de mudanza","Available now":"Disponible ya","Available only":"Solo disponibles",
+"Showing":"Mostrando","of 11 plans":"de 11 planos","Clear filters":"Borrar filtros",
+"sq ft":"pies²","Compare":"Comparar","Added":"Agregado","3D tour":"Recorrido 3D","Waitlist":"Lista de espera",
+"No plans match those filters.":"Ningún plano coincide con esos filtros.","Try a higher budget or fewer must haves.":"Pruebe con un presupuesto mayor o menos requisitos.","Show all 11 plans":"Ver los 11 planos",
+"Rent ranges as currently listed by Crestwood Lake. Pricing and availability change, so confirm with the leasing office before you apply.":"Rangos de renta según la lista actual de Crestwood Lake. Los precios y la disponibilidad cambian, así que confirme con la oficina de alquiler antes de solicitar.",
+"Close":"Cerrar","Explore in 3D":"Explorar en 3D","Tap to zoom":"Toque para ampliar","Monthly rent":"Renta mensual","Available from":"Disponible desde","Listed rent":"Renta publicada","Available units":"Apartamentos disponibles","Included in rent":"Incluido en la renta","Heat":"Calefacción","Hot water":"Agua caliente","Cooking gas":"Gas para cocinar",
+"Apply for this layout":"Solicitar esta distribución","Book a tour of this layout":"Agendar una visita de esta distribución",
+"Unit":"Apartamento","Move in":"Mudanza","Rent":"Renta","Now":"Ya","Tour":"Visitar",
+"731 sq ft units can be Plan 03 or Plan 04. The leasing office will confirm the layout.":"Los apartamentos de 731 pies² pueden ser Plan 03 o Plan 04. La oficina de alquiler confirmará la distribución.",
+"No apartments open for that move in date. Join the waitlist and the office will call you.":"No hay apartamentos para esa fecha de mudanza. Anótese en la lista de espera y la oficina lo llamará.",
+"Inside the apartments":"Dentro de los apartamentos","Sunlit rooms,":"Habitaciones con luz,","real storage.":"y espacio de verdad.",
+"Expansive windows, well appointed kitchens with gas ranges, and closets built for the way people actually live.":"Ventanas amplias, cocinas bien equipadas con estufa de gas y clósets pensados para la vida real.",
+"Apartment photos, drag or scroll sideways":"Fotos de apartamentos, deslice hacia los lados",
+"Bright living room with sofa, armchairs and large windows":"Sala luminosa con sofá, sillones y ventanas grandes","Living room":"Sala",
+"White kitchen with gas range, stainless refrigerator and window":"Cocina blanca con estufa de gas, refrigerador de acero inoxidable y ventana","Kitchen with gas range":"Cocina con estufa de gas",
+"Wide windows looking out onto trees":"Ventanas amplias con vista a los árboles","Big windows, green views":"Ventanas grandes, vistas verdes",
+"Empty bedroom with two windows and carpet":"Dormitorio vacío con dos ventanas y alfombra","Bedroom":"Dormitorio",
+"Kitchen with wood cabinets and gas range":"Cocina con gabinetes de madera y estufa de gas","Kitchen with wood cabinets":"Cocina con gabinetes de madera",
+"Bathroom vanity with marble look tile":"Lavabo del baño con azulejo tipo mármol","Bathroom":"Baño","Previous photo":"Foto anterior","Next photo":"Foto siguiente",
+"Finishes vary by apartment. Ask the leasing office which apartments are available with each kitchen style.":"Los acabados varían según el apartamento. Pregunte en la oficina de alquiler qué apartamentos hay con cada estilo de cocina.",
+"Spacious 1, 2 and 3 bedrooms":"Amplios de 1, 2 y 3 dormitorios","More room to live, work and relax, with layouts up to 1,017 square feet.":"Más espacio para vivir, trabajar y descansar, con distribuciones de hasta 1,017 pies cuadrados.",
+"Lake and brook views":"Vistas al lago y al arroyo","Expansive windows in select apartments look out on the lake and the brook.":"Ventanas amplias en algunos apartamentos con vista al lago y al arroyo.",
+"Ample closet space":"Amplio espacio de clósets","Storage designed to make everyday living easier. Some layouts include a walk in closet.":"Almacenamiento pensado para facilitar el día a día. Algunas distribuciones incluyen vestidor.",
+"Kitchens with gas ranges":"Cocinas con estufa de gas","Designed for function, comfort and home cooked meals.":"Pensadas para la funcionalidad, la comodidad y la comida casera.",
+"Heat, hot water and gas included":"Calefacción, agua caliente y gas incluidos","Comfort built into your lease, so winter bills stay predictable.":"Comodidad incluida en su contrato, para que las cuentas de invierno sean predecibles.",
+"Garages and assigned parking":"Garajes y estacionamiento asignado","Private garages for rent, assigned spaces, surface lots and street parking.":"Garajes privados en alquiler, espacios asignados, lotes abiertos y estacionamiento en la calle.",
+"Life at Crestwood Lake":"La vida en Crestwood Lake","Four seasons":"Cuatro estaciones","on the lake.":"junto al lago.",
+"The grounds change all year. Scenic views of the private lake shift with every season, and there is always room to get outside.":"El complejo cambia todo el año. Las vistas del lago privado cambian con cada estación, y siempre hay espacio para salir.",
+"Seasons":"Estaciones","Spring":"Primavera","Summer":"Verano","Fall":"Otoño","Winter":"Invierno",
+"Flower beds come back to life and the lawns turn green again.":"Los jardines florecen de nuevo y el césped vuelve a ponerse verde.",
+"Long evenings on open lawns, with plenty of shade and room to spread out.":"Tardes largas en jardines abiertos, con mucha sombra y espacio de sobra.",
+"Tree lined paths turn gold. The best time of year for a walk around the lake.":"Los senderos arbolados se vuelven dorados. La mejor época para caminar alrededor del lago.",
+"Snow on the lawns, heat and hot water included, and nowhere you need to be.":"Nieve en los jardines, calefacción y agua caliente incluidas, y ningún lugar al que tenga que ir.",
+"Flower beds along the buildings":"Jardines de flores junto a los edificios","Open lawns and shade trees":"Jardines abiertos y árboles de sombra","Fall walks with the dog":"Paseos de otoño con el perro","Snow days on the lawn":"Días de nieve en el jardín",
+"White flowers and shrubs planted beneath a tall tree beside a brick building":"Flores blancas y arbustos bajo un árbol alto junto a un edificio de ladrillo",
+"Open park lawn with benches, a path and mature trees":"Jardín abierto con bancas, un sendero y árboles grandes",
+"A couple walking a small dog along a path covered in fall leaves":"Una pareja paseando un perro pequeño por un sendero cubierto de hojas de otoño",
+"Two children in snowsuits building a snowman on a snowy lawn":"Dos niños con trajes de nieve haciendo un muñeco de nieve en el jardín",
+"A curly haired dog sitting on the lawn":"Un perro de pelo rizado sentado en el césped",
+"Room to":"Espacio para","roam.":"pasear.",
+"Crestwood Lake is one of the few truly pet friendly communities in Westchester. Sixty acres of lawns and walking paths make for very good morning walks.":"Crestwood Lake es una de las pocas comunidades de Westchester que de verdad acepta mascotas. Sesenta acres de jardines y senderos hacen que los paseos matutinos sean muy buenos.",
+"Ask about the pet policy":"Consulte la política de mascotas",
+"Errands in minutes,":"Mandados en minutos,","not an afternoon.":"no en toda la tarde.",
+"Crestwood Lake sits right off Central Avenue, the main shopping corridor of northeast Yonkers. Pharmacy, coffee, groceries and big box stores are a short walk or a quick drive from your door.":"Crestwood Lake está justo al lado de Central Avenue, la principal zona comercial del noreste de Yonkers. Farmacia, café, supermercados y grandes tiendas quedan a una corta caminata o a pocos minutos en auto.",
+"stores and services within a quarter mile":"tiendas y servicios a menos de un cuarto de milla","of the leasing office, including CVS, Kohl's, Petco and Famous Footwear.":"de la oficina de alquiler, incluidos CVS, Kohl's, Petco y Famous Footwear.",
+"Right next door":"Justo al lado","Distance from the leasing office, in miles":"Distancia desde la oficina de alquiler, en millas","Highlight a category":"Destacar una categoría",
+"Food and coffee":"Comida y café","Groceries":"Supermercados","Shopping":"Compras","Home":"Hogar","Pets":"Mascotas","Crestwood Lake leasing office":"Oficina de alquiler de Crestwood Lake",
+"Show all 27 places by distance":"Ver los 27 lugares por distancia","Hide the list":"Ocultar la lista",
+"Straight line distances measured from 90 Beaumont Circle using OpenStreetMap store locations, September 2026. Tanglewood tenants per the center's leasing listing. Store lineups change over time.":"Distancias en línea recta medidas desde 90 Beaumont Circle con ubicaciones de tiendas de OpenStreetMap, septiembre de 2026. Inquilinos de Tanglewood según el listado del centro. Las tiendas cambian con el tiempo.",
+"Northeast Yonkers":"Noreste de Yonkers","At the crossroads of":"En el cruce entre","here and there.":"aquí y allá.",
+"The Manhattan skyline is within reach, yet life here moves at its own pace. Train, express bus and three major parkways are minutes from your door.":"Manhattan está al alcance, pero aquí la vida va a su propio ritmo. Tren, autobús exprés y tres autopistas principales a minutos de su puerta.",
+"Metro North train at a station platform":"Tren de Metro North en el andén","Metro North, Harlem Line":"Metro North, línea Harlem","Crestwood station to Grand Central":"De la estación Crestwood a Grand Central",
+"The Crestwood station is about 1.2 miles away, with express trains to Grand Central Terminal.":"La estación Crestwood queda a unas 1.2 millas, con trenes exprés a Grand Central Terminal.",
+"Crestwood station sign on the Metro North platform":"Letrero de la estación Crestwood en el andén de Metro North",
+"Express bus":"Autobús exprés","Straight to Fifth Avenue":"Directo a la Quinta Avenida","Express service from Central Avenue in Yonkers to Midtown Manhattan.":"Servicio exprés desde Central Avenue en Yonkers hasta Midtown Manhattan.",
+"Tree lined walkway between Crestwood Lake buildings":"Sendero arbolado entre edificios de Crestwood Lake","Bee Line bus":"Autobús Bee Line","White Plains to the Bronx":"De White Plains al Bronx","Connects to MTA subway service in the Bronx.":"Conecta con el metro de la MTA en el Bronx.",
+"Easy highway access":"Acceso fácil a autopistas","Local trivia.":"Dato curioso.",
+"Crestwood station has been in service since 1901, and Norman Rockwell put it on the cover of The Saturday Evening Post in November 1946.":"La estación Crestwood funciona desde 1901, y Norman Rockwell la puso en la portada de The Saturday Evening Post en noviembre de 1946.",
+"Nearby places":"Lugares cercanos","Parks":"Parques","Fitness and health":"Ejercicio y salud","Schools":"Escuelas","Crestwood station":"Estación Crestwood","Tuckahoe station":"Estación Tuckahoe","Bronxville station":"Estación Bronxville","Scarsdale station":"Estación Scarsdale","BxM4 express bus":"Autobús exprés BxM4","Local bus":"Autobús local",
+"Park":"Parque","Gardens":"Jardines","Trail":"Sendero","Grocery":"Supermercado","Warehouse":"Club de precios","Next door":"Al lado","Fitness":"Gimnasio","Urgent care":"Atención urgente","School":"Escuela","High school":"Secundaria","Scarsdale, K to 8":"Scarsdale, kínder a 8.º",
+"The Crestwood Lake management and maintenance team":"El equipo de administración y mantenimiento de Crestwood Lake","Services and management":"Servicios y administración","A community that":"Una comunidad que","runs smoothly.":"funciona bien.",
+"Parking that works, grounds that look good in every season, and a service team ready to help. Crestwood Lake is an easy place to call home.":"Estacionamiento que funciona, jardines que lucen bien en cada estación y un equipo listo para ayudar. En Crestwood Lake es fácil sentirse en casa.",
+"24/7 emergency maintenance":"Mantenimiento de emergencia 24/7","Because peace of mind is not optional.":"Porque la tranquilidad no es opcional.","Responsive management":"Administración atenta","An on site office, always within reach.":"Una oficina en el complejo, siempre al alcance.","On site laundry rooms":"Lavanderías en el complejo","Clean, functional and spread across the property.":"Limpias, funcionales y repartidas por todo el complejo.","School bus stops on property":"Paradas de autobús escolar en el complejo","Easier mornings for families with kids.":"Mañanas más fáciles para las familias con niños.",
+"4.5 out of 5 stars":"4.5 de 5 estrellas","744 reviews on Google":"744 reseñas en Google","In residents'":"En palabras","own words.":"de los residentes.","Read every review on Google":"Leer todas las reseñas en Google","5 stars":"5 estrellas",
+"Taught a free outdoor yoga series for residents, Google review, 2025":"Dio clases gratuitas de yoga al aire libre para residentes, reseña de Google, 2025",
+"Excerpts from public Google reviews, quoted as written. Reviewer names shortened to first name and last initial.":"Extractos de reseñas públicas de Google, citadas tal como fueron escritas, en inglés. Los nombres se acortaron al nombre y la inicial del apellido.",
+"Follow along":"Síganos","Life at the lake,":"La vida en el lago,","every week.":"cada semana.","Seasonal events, community news and photos from around the grounds.":"Eventos de temporada, noticias de la comunidad y fotos de todo el complejo.",
+"Crestwood Lake on Instagram":"Crestwood Lake en Instagram","A dog on the lawn":"Un perro en el jardín","Kids building a snowman":"Niños haciendo un muñeco de nieve","Flower beds by a building":"Jardines de flores junto a un edificio","A playground on the property":"Un área de juegos en el complejo","A couple walking in fall":"Una pareja caminando en otoño",
+"Questions":"Preguntas","Good to":"Bueno","know.":"saberlo.","Anything else, the leasing office is a call away at":"Para cualquier otra cosa, la oficina de alquiler está a una llamada en el",
+"What utilities are included in the rent?":"¿Qué servicios están incluidos en la renta?","Heat, hot water and cooking gas are included in every lease.":"La calefacción, el agua caliente y el gas para cocinar están incluidos en todos los contratos.",
+"Is Crestwood Lake pet friendly?":"¿Crestwood Lake acepta mascotas?","Yes. Crestwood Lake is one of the few truly pet friendly communities in Westchester, with 60 acres of lawns and walking paths. Call the leasing office for the current pet policy.":"Sí. Crestwood Lake es una de las pocas comunidades de Westchester que de verdad acepta mascotas, con 60 acres de jardines y senderos. Llame a la oficina de alquiler para conocer la política de mascotas vigente.",
+"Where do residents park?":"¿Dónde se estacionan los residentes?","Choose from surface lots, street parking and assigned parking, with private garages available to rent.":"Puede elegir entre lotes abiertos, estacionamiento en la calle y estacionamiento asignado, además de garajes privados en alquiler.",
+"Is there laundry on site?":"¿Hay lavandería en el complejo?","Yes. Clean on site laundry rooms are spread across the property, so there is always one close to your building.":"Sí. Hay lavanderías limpias repartidas por todo el complejo, así que siempre hay una cerca de su edificio.",
+"How far is the train to Manhattan?":"¿Qué tan lejos está el tren a Manhattan?","The Crestwood Metro North station is about 1.2 miles away, roughly 8 minutes by car, with express trains to Grand Central in about 30 minutes. The BxM4 express bus to Fifth Avenue runs along Central Avenue.":"La estación Crestwood de Metro North queda a unas 1.2 millas, unos 8 minutos en auto, con trenes exprés a Grand Central en unos 30 minutos. El autobús exprés BxM4 a la Quinta Avenida pasa por Central Avenue.",
+"Is it a good fit for families?":"¿Es un buen lugar para familias?","The property has three children's playgrounds, wide open lawns and school bus stops right on the grounds.":"El complejo tiene tres áreas de juegos infantiles, amplios jardines y paradas de autobús escolar dentro del complejo.",
+"What happens if something breaks?":"¿Qué pasa si algo se daña?","Emergency maintenance is available 24/7, and the management office is on site at Building 90.":"Hay mantenimiento de emergencia 24/7, y la oficina de administración está en el Edificio 90.",
+"When can I tour, and how do I apply?":"¿Cuándo puedo visitar y cómo solicito?","Tours run Monday to Friday, 9am to 5pm, with Saturdays by appointment. When you are ready, use the":"Las visitas son de lunes a viernes, de 9am a 5pm, y los sábados con cita. Cuando esté listo, use la","application checklist on this page":"lista de requisitos de esta página",
+"Rental application":"Solicitud de alquiler","Apply in":"Solicite en","three steps.":"tres pasos.",
+"Tell us who is moving in, check off your documents as you gather them, then submit. Your progress is saved on this device, so you can come back anytime.":"Díganos quién se muda, marque sus documentos a medida que los reúne y luego entregue. Su progreso se guarda en este dispositivo, así que puede volver cuando quiera.",
+"Application steps":"Pasos de la solicitud","Your household":"Su hogar","Apartment and who is applying":"Apartamento y solicitantes","Documents":"Documentos","Checklist for every applicant":"Lista para cada solicitante","Submit":"Entregar","Application, fee and drop off":"Solicitud, cuota y entrega","Your readiness":"Su avance",
+"Who is moving in?":"¿Quién se muda?","Everyone 18 or older who will live in the apartment applies and signs the lease, either as the applicant or a co applicant.":"Toda persona de 18 años o más que vivirá en el apartamento debe solicitar y firmar el contrato, como solicitante o cosolicitante.",
+"Floor plan":"Plano","Not sure yet":"Aún no sé","Adults 18 and older":"Adultos de 18 años o más","Fewer adults":"Menos adultos","More adults":"Más adultos","Children under 18":"Menores de 18 años","Fewer children":"Menos niños","More children":"Más niños",
+"Credit check fee":"Cuota de verificación de crédito","Next: documents":"Siguiente: documentos","Gather your documents":"Reúna sus documentos","Every adult on the application needs the full set. Tap each item as you get it ready.":"Cada adulto de la solicitud necesita todos los documentos. Toque cada uno cuando lo tenga listo.",
+"Applicant":"Solicitante","Government photo ID":"Identificación oficial con foto","Driver's license, non driver ID or passport.":"Licencia de conducir, identificación de no conductor o pasaporte.","Social Security card":"Tarjeta de Seguro Social","Employment letter":"Carta de empleo",
+"On company letterhead, signed and dated, stating your position, date of hire and annual salary. Must show 2 years of stable employment.":"En papel membretado de la empresa, firmada y fechada, con su puesto, fecha de contratación y salario anual. Debe mostrar 2 años de empleo estable.",
+"4 most recent pay stubs":"Los 4 talones de pago más recientes","Social Security Statement":"Estado de cuenta del Seguro Social","Download it free at":"Descárguelo gratis en","Last 2 years of tax return transcripts":"Transcripciones de impuestos de los últimos 2 años","Get them free at":"Obténgalas gratis en",
+"2 most recent complete bank statements":"Los 2 estados de cuenta bancarios completos más recientes","Every page of each statement.":"Todas las páginas de cada estado de cuenta.","Landlord reference letter":"Carta de referencia del arrendador","From your current landlord.":"De su arrendador actual.","Copy of your current lease":"Copia de su contrato actual","Signed application":"Solicitud firmada","Your section filled in completely and signed.":"Su sección completa y firmada.",
+"Tip.":"Consejo.","Put each applicant's documents in the order listed above. Incomplete applications are not accepted.":"Ordene los documentos de cada solicitante como aparecen arriba. No se aceptan solicitudes incompletas.",
+"Back":"Atrás","Next: submit":"Siguiente: entregar","Submit your application":"Entregue su solicitud","Applicants":"Solicitantes","Children":"Niños","None":"Ninguno","Documents ready":"Documentos listos",
+"Get the application":"Obtener la solicitud","3 page PDF. Every adult fills in their section and signs.":"PDF de 3 páginas. Cada adulto llena su sección y firma.","Book a drop off":"Agendar la entrega","Bring the application, documents and fee to the leasing office.":"Traiga la solicitud, los documentos y la cuota a la oficina de alquiler.",
+"Questions? Call":"¿Preguntas? Llame al","After approval.":"Después de la aprobación.","The security deposit holds your apartment. The leasing office will tell you the deadline when you are approved.":"El depósito de seguridad le reserva el apartamento. La oficina de alquiler le dirá la fecha límite cuando sea aprobado.",
+"Everything is ready. Fill in and sign the application, then bring it with your documents and fee to the leasing office.":"Todo está listo. Llene y firme la solicitud, y tráigala con sus documentos y la cuota a la oficina de alquiler.",
+"Children: birth certificates and Social Security cards":"Niños: actas de nacimiento y tarjetas de Seguro Social",
+"Start over":"Empezar de nuevo","Visit":"Visítenos","Come see it":"Venga a","in person.":"conocerlo.",
+"Pick a day and a time. The leasing team will confirm your visit and have apartments that match your size and budget ready to walk through.":"Elija un día y una hora. El equipo de alquiler confirmará su visita y tendrá listos apartamentos que se ajusten a su tamaño y presupuesto.",
+"Call leasing":"Llamar a la oficina","Email us":"Escríbanos","Leasing":"Alquiler","Copy":"Copiar","Copied":"Copiado","Selected":"Seleccionado","Main office":"Oficina principal","Email":"Correo","Hours":"Horario","Monday to Friday, 9am to 5pm":"Lunes a viernes, de 9am a 5pm","Saturdays by appointment":"Sábados con cita","Address":"Dirección",
+"Get directions":"Cómo llegar","Drive time from you":"Tiempo en auto desde usted","Finding your location":"Buscando su ubicación","Location is off. Pick where you are coming from:":"La ubicación está desactivada. Elija desde dónde viene:","Location is not available on this device. Pick where you are coming from:":"La ubicación no está disponible en este dispositivo. Elija desde dónde viene:","Starting point":"Punto de partida",
+"LaGuardia Airport":"Aeropuerto LaGuardia","Downtown Yonkers":"Centro de Yonkers","Typical drive time without traffic.":"Tiempo típico en auto sin tráfico.",
+"Social":"Redes sociales","Ready now":"Listo ahora","Start your application":"Empiece su solicitud","Schedule a tour":"Agende una visita","1 bedroom":"1 dormitorio","2 bedrooms":"2 dormitorios","3 bedrooms":"3 dormitorios",
+"Day":"Día","Mon":"lun","Tue":"mar","Wed":"mié","Thu":"jue","Fri":"vie","Sat":"sáb","Sun":"dom","By appt.":"Con cita","Time":"Hora","Full name":"Nombre completo","Phone":"Teléfono",
+"Within 30 days":"En los próximos 30 días","In 1 to 2 months":"En 1 a 2 meses","In 2 to 3 months":"En 2 a 3 meses","Just exploring":"Solo estoy mirando","Floor plan of interest":"Plano de interés","Any floor plan":"Cualquier plano","Request this tour":"Solicitar esta visita","Prefer to talk?":"¿Prefiere hablar?",
+"Looking for":"Busca","Any":"Cualquiera",
+"This design preview does not send requests yet. On the live site, this goes straight to the leasing office for confirmation. To lock in a time today, call 914 228 2887.":"Esta vista previa todavía no envía solicitudes. En el sitio real, esto llega directo a la oficina de alquiler para confirmar. Para asegurar una hora hoy, llame al 914 228 2887.",
+"A rental garden community of 1, 2 and 3 bedroom apartments in northeast Yonkers.":"Una comunidad de alquiler entre jardines con apartamentos de 1, 2 y 3 dormitorios en el noreste de Yonkers.",
+"Directions":"Cómo llegar","Contact":"Contacto","Explore":"Explorar","Fact sheet":"Hoja informativa","Crestwood Lake Apartments. All rights reserved.":"Crestwood Lake Apartments. Todos los derechos reservados.","Equal Housing Opportunity":"Igualdad de oportunidades en la vivienda",
+"Compare floor plans":"Comparar planos","Clear":"Borrar","Side by side":"Lado a lado","Green marks the best value in each row.":"El verde marca el mejor valor en cada fila.","Plan":"Plano",
+"Size":"Tamaño","Layout":"Distribución","Rent from":"Renta desde","Rent range":"Rango de renta","Per sq ft":"Por pie²","Largest room":"Habitación más grande","Extras":"Extras","Included":"Incluido","None listed":"Ninguno","Heat, hot water, cooking gas":"Calefacción, agua caliente, gas para cocinar",
+"Close 3D tour":"Cerrar recorrido 3D","Previous room":"Habitación anterior","Next room":"Habitación siguiente","Drag to look around, scroll to zoom":"Arrastre para mirar, use la rueda para acercar","Drag to look around, pinch to zoom":"Arrastre para mirar, pellizque para acercar",
+"3D model built from the official floor plan. Furniture shown for scale. Finishes vary by apartment.":"Modelo 3D creado a partir del plano oficial. Los muebles se muestran a escala. Los acabados varían según el apartamento.",
+"Picture yourself here?":"¿Se imagina aquí?","See it in person or start your application in a few minutes.":"Véalo en persona o empiece su solicitud en pocos minutos.","Apply now":"Solicitar ahora","Replay":"Repetir","Rooms":"Habitaciones","Play walkthrough":"Iniciar recorrido","Pause":"Pausa","Resume":"Continuar","Top":"Planta","Reset view":"Restablecer vista",
+"Building your 3D tour":"Preparando su recorrido 3D","Walls, windows and furniture, to scale":"Paredes, ventanas y muebles, a escala","The 3D tour could not load":"No se pudo cargar el recorrido 3D","Check your connection and try again.":"Revise su conexión e intente de nuevo.","Try again":"Intentar de nuevo","3D is not supported on this device":"Este dispositivo no admite 3D","Here is the floor plan instead.":"Aquí está el plano.",
+"Interactive 3D model of the apartment":"Modelo 3D interactivo del apartamento","Call the leasing office":"Llamar a la oficina de alquiler",
+"Living and dining":"Sala y comedor","Foyer":"Recibidor","Dining":"Comedor","Kitchen":"Cocina","Primary suite":"Suite principal","Primary bedroom":"Dormitorio principal","Bedroom 1":"Dormitorio 1","Bedroom 2":"Dormitorio 2","Bedroom 3":"Dormitorio 3","Bath":"Baño","Half bath":"Medio baño",
+"Walk in closet, Separate dining":"Vestidor, comedor separado","1.5 baths, Walk in closet, Separate dining":"1.5 baños, vestidor, comedor separado",
+"today at 9am":"hoy a las 9am","tomorrow at 9am":"mañana a las 9am",
+"Crestwood Lake Apartments, Yonkers NY":"Crestwood Lake Apartments, Yonkers NY"
+};
+const MONTHS={January:'enero',February:'febrero',March:'marzo',April:'abril',May:'mayo',June:'junio',July:'julio',August:'agosto',September:'septiembre',October:'octubre',November:'noviembre',December:'diciembre'};
+const MSHORT={Jan:'ene',Feb:'feb',Mar:'mar',Apr:'abr',May:'may',Jun:'jun',Jul:'jul',Aug:'ago',Sep:'sep',Oct:'oct',Nov:'nov',Dec:'dic'};
+const DAYS={Monday:'lunes',Tuesday:'martes',Wednesday:'miércoles',Thursday:'jueves',Friday:'viernes',Saturday:'sábado',Sunday:'domingo'};
+const pl=(n,a,b)=>(+n===1?a:b);
+const bb=s=>s.replace(/(\d+) bedrooms?/,(m,n)=>`${n} ${pl(n,'dormitorio','dormitorios')}`).replace(/([\d.]+) baths?/,(m,n)=>`${n} ${pl(n,'baño','baños')}`);
+const RX=[
+[/^(\d+) apartments? available$/,(m,n)=>`${n} ${pl(n,'apartamento disponible','apartamentos disponibles')}`],
+[/^Live from the leasing office, updated (.+)$/,(m,t)=>`En vivo desde la oficina de alquiler, actualizado a las ${t}`],
+[/^From the leasing office, last updated (\w{3}) (\d+), (.+)$/,(m,mo,d,t)=>`Según la oficina de alquiler, actualizado el ${d} de ${MSHORT[mo]||mo}, ${t}`],
+[/^Move in by (\w+) (\d+)$/,(m,mo,d)=>`Antes del ${d} de ${MONTHS[mo]||mo}`],
+[/^(\d+) available now$/,(m,n)=>`${n} ${pl(n,'disponible ya','disponibles ya')}`],
+[/^(\d+) available$/,(m,n)=>`${n} ${pl(n,'disponible','disponibles')}`],
+[/^Available (\w{3}) (\d+)$/,(m,mo,d)=>`Disponible el ${d} de ${MSHORT[mo]||mo}`],
+[/^(\w{3}) (\d+)$/,(m,mo,d)=>MSHORT[mo]?`${d} ${MSHORT[mo]}`:null],
+[/^From (\$[\d,]+)$/,(m,p)=>`Desde ${p}`],
+[/^(\$[\d.,]+) per sq ft$/,(m,p)=>`${p} por pie²`],
+[/^(\d) bed$/,(m,n)=>`${n} dorm.`],
+[/^([\d.]+) baths?$/,(m,n)=>`${n} ${pl(n,'baño','baños')}`],
+[/^(\d+) bedrooms?, ([\d.]+) baths?$/,m=>bb(m)],
+[/^Plan (\d+), ([\d,]+) sq ft, (.+)$/,(m,n,s,r)=>`Plan ${n}, ${s} pies², ${bb(r)}`],
+[/^Plan (\d+), ([\d,]+) square feet, (.+), from (\$[\d,]+)\. View room sizes$/,(m,n,s,r,p)=>`Plan ${n}, ${s} pies cuadrados, ${bb(r)}, desde ${p}. Ver medidas de las habitaciones`],
+[/^Compare Plan (\d+)$/,(m,n)=>`Comparar Plan ${n}`],
+[/^3D tour of Plan (\d+)$/,(m,n)=>`Recorrido 3D del Plan ${n}`],
+[/^Floor plan drawing for Plan (\d+)$/,(m,n)=>`Dibujo del plano del Plan ${n}`],
+[/^Plan (\d+) floor plan$/,(m,n)=>`Plano del Plan ${n}`],
+[/^([\d,]+) sq ft$/,(m,n)=>`${n} pies²`],
+[/^(\$[\d,]+) to (\$[\d,]+)$/,(m,a,b)=>`${a} a ${b}`],
+[/^(\d+)° to (\d+)°$/,(m,a,b)=>`${a}° a ${b}°`],
+[/^Weather at Crestwood Lake: (\d+) degrees, (.+)$/,(m,t,l)=>`El clima en Crestwood Lake: ${t} grados, ${ES[l]||l}`],
+[/^Live forecast, updated (.+?)\. Data by Open-Meteo\.$/,(m,t)=>`Pronóstico en vivo, actualizado a las ${t}. Datos de Open-Meteo.`],
+[/^Last updated (\w{3}) (\d+), (.+?)\. Data by Open-Meteo\.$/,(m,mo,d,t)=>`Actualizado el ${d} de ${MSHORT[mo]||mo}, ${t}. Datos de Open-Meteo.`],
+[/^Leasing office opens (.+)$/,(m,n)=>`La oficina de alquiler abre ${ES[n]||n.replace(/^(\w+day) at (.+)$/,(x,d,t)=>`el ${DAYS[d]||d} a las ${t}`)}`],
+[/^About (\d+) min drive, ([\d.]+) mi$/,(m,a,b)=>`Unos ${a} min en auto, ${b} mi`],
+[/^About (\d+) min$/,(m,a)=>`Unos ${a} min`],
+[/^from you, ([\d.]+) mi$/,(m,a)=>`desde usted, ${a} mi`],
+[/^(\d+) of (\d+) items ready$/,(m,a,b)=>`${a} de ${b} listos`],
+[/^(\d+) of (\d+)$/,(m,a,b)=>`${a} de ${b}`],
+[/^Co applicant (\d+)$/,(m,n)=>`Cosolicitante ${n}`],
+[/^(\d+)\. (.+)$/,(m,n,t)=>ES[t]?`${n}. ${ES[t]}`:null],
+[/^Required for all (\d+) (?:children|child) under 18, listed in the dependent occupants section\.$/,(m,n)=>`Obligatorio para ${pl(n,'el menor','los '+n+' menores')} de 18 años, anotados en la sección de ocupantes dependientes.`],
+[/^\$20 per applicant(?: x (\d+) applicants)?, one time and non refundable\. Paid by money order made payable to The Woodner Company\.$/,(m,n)=>`$20 por solicitante${n?' x '+n+' solicitantes':''}, un solo pago y no reembolsable. Se paga con giro postal (money order) a nombre de The Woodner Company.`],
+[/^(\d+) adults?$/,(m,n)=>`${n} ${pl(n,'adulto','adultos')}`],
+[/^(\$\d+) by money order$/,(m,p)=>`${p} con giro postal`],
+[/^You still have (\d+) items? to gather\. You can download the application now and finish your documents before drop off\.$/,(m,n)=>`Aún le ${pl(n,'falta','faltan')} ${n} ${pl(n,'documento','documentos')} por reunir. Puede descargar la solicitud ahora y completar sus documentos antes de la entrega.`],
+[/^(January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})$/,(m,mo,y)=>`${MONTHS[mo]} de ${y}`],
+[/^Thanks, (.+)\. Your tour request is ready\.$/,(m,n)=>`Gracias, ${n}. Su solicitud de visita está lista.`],
+[/^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday), (\w+) (\d+)$/,(m,d,mo,n)=>`${DAYS[d]}, ${n} de ${MONTHS[mo]||mo}`],
+[/^(.+) \(Saturday, by appointment\)$/,(m,t)=>`${t} (sábado, con cita)`],
+[/^(Plan \d+), unit (.+)$/,(m,p,u)=>`${p}, apartamento ${u}`],
+[/^(\d+) selected$/,(m,n)=>`${n} ${pl(n,'seleccionado','seleccionados')}`],
+[/^Google review, (\d{4})$/,(m,y)=>`Reseña de Google, ${y}`],
+[/^Leasing office: (.+)$/,(m,p)=>`Oficina de alquiler: ${p}`],
+[/^Leasing office, (.+)$/,(m,p)=>`Oficina de alquiler, ${p}`],
+[/^Leasing (\d{3} \d{3} \d{4})$/,(m,p)=>`Alquiler ${p}`],
+[/^Main (\d{3} \d{3} \d{4})$/,(m,p)=>`Oficina principal ${p}`],
+[/^Call the leasing office at (.+)$/,(m,p)=>`Llame a la oficina de alquiler al ${p}`],
+[/^(.+), (\d+\.\d+) miles$/,(m,n,d)=>`${n}, ${d} millas`],
+[/^(.+)\|(.+)$/,null]
+];
+function tr(core){let o=ES[core];if(o!=null)return o;for(const [re,f] of RX){if(!f)continue;const m=core.match(re);if(m){const r=f(...m);if(r!=null)return r}}return null}
+const ATTRS=['placeholder','aria-label','alt','title'];
+const SKIP='script,style,svg,noscript,[data-i18n-skip],#statement';
+let lang='en',mo=null,busy=false;
+const txNode=n=>{const p=n.parentElement;if(!p||p.closest(SKIP))return;const v=n.nodeValue;
+  if(lang==='es'){if(n.__es!==undefined&&v===n.__es)return;n.__en=v;const core=v.replace(/\s+/g,' ').trim();if(!core||!/[A-Za-z]/.test(core)){n.__es=v;return}
+    const t=tr(core);if(t==null){n.__es=v;return}const lead=v.match(/^\s*/)[0],trail=v.match(/\s*$/)[0];n.__es=lead+t+trail;if(n.__es!==v)n.nodeValue=n.__es}
+  else if(n.__en!==undefined){if(v===n.__es&&v!==n.__en)n.nodeValue=n.__en;n.__en=n.__es=undefined}};
+const txEl=el=>{if(el.closest(SKIP))return;for(const a of ATTRS){if(!el.hasAttribute(a))continue;const v=el.getAttribute(a);el.__ae=el.__ae||{};el.__as=el.__as||{};
+  if(lang==='es'){if(el.__as[a]!==undefined&&v===el.__as[a])continue;el.__ae[a]=v;const t=tr(v.replace(/\s+/g,' ').trim());el.__as[a]=t==null?v:t;if(t!=null&&t!==v)el.setAttribute(a,t)}
+  else if(el.__ae[a]!==undefined){if(v===el.__as[a])el.setAttribute(a,el.__ae[a]);delete el.__ae[a];delete el.__as[a]}}};
+function walk(root){if(root.nodeType===3)return txNode(root);if(root.nodeType!==1)return;if(root.closest&&root.closest(SKIP))return;txEl(root);
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT,{acceptNode:n=>n.nodeType===1&&n.matches(SKIP)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});let n;
+  while(n=w.nextNode()){n.nodeType===3?txNode(n):txEl(n)}}
+function observe(){if(mo)return;mo=new MutationObserver(ms=>{if(busy)return;busy=true;try{for(const m of ms){if(m.type==='childList')m.addedNodes.forEach(walk);else if(m.type==='characterData')txNode(m.target);else if(m.type==='attributes')txEl(m.target)}}finally{busy=false}});
+  mo.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:ATTRS})}
+const ST_EN='Tree lined streets slow the pace. Neighbors know each other by name. Generations of residents have called Crestwood Lake home, drawn by space that city apartments rarely offer and a lake you can walk to in <span class="serif">slippers.</span>';
+const ST_ES='Las calles arboladas bajan el ritmo. Los vecinos se conocen por su nombre. Generaciones de residentes han hecho de Crestwood Lake su hogar, atraídos por un espacio que los apartamentos de la ciudad casi nunca ofrecen y un lago al que puede ir <span class="serif">en pantuflas.</span>';
+const TITLE={en:null,es:'Crestwood Lake Apartments en Yonkers, NY | Apartamentos de 1, 2 y 3 dormitorios'};
+function setLang(l,save){if(l===lang&&save!==false&&mo)return;lang=l;busy=true;
+  try{walk(document.body)}finally{busy=false}
+  observe();
+  document.documentElement.lang=l;
+  if(TITLE.en==null)TITLE.en=document.title;if(document.title||l==='es')document.title=l==='es'?TITLE.es:TITLE.en;
+  const st=document.getElementById('statement');if(st){const html=l==='es'?ST_ES:ST_EN;if(window.CWstatement)CWstatement(html);else st.innerHTML=html}
+  document.querySelectorAll('[data-lang-btn]').forEach(b=>{b.querySelector('.lf').textContent=l==='es'?'English':'Español';b.querySelector('.ls').textContent=l==='es'?'EN':'ES';b.setAttribute('aria-label',l==='es'?'View in English':'Ver en español');b.setAttribute('lang',l==='es'?'en':'es')});
+  if(save!==false){try{localStorage.setItem('cl-lang',l)}catch(e){}}
+  document.dispatchEvent(new CustomEvent('cw:lang',{detail:l}))}
+let saved=null;try{saved=localStorage.getItem('cl-lang')}catch(e){}
+const auto=!saved&&((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase().startsWith('es');
+document.querySelectorAll('[data-lang-btn]').forEach(b=>b.addEventListener('click',()=>setLang(lang==='es'?'en':'es')));
+window.CWi18n={set:setLang,get lang(){return lang}};
+const q=new URLSearchParams(location.search).get('lang');
+if(q==='es'||q==='en')setLang(q,false);else if(saved==='es'||auto)setLang('es',false);
 })();
 </script>
 
