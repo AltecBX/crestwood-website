@@ -622,7 +622,8 @@ details.q .a a{color:var(--lake)}
 .dir svg{width:13px;height:13px}
 .eta{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:0;background:rgba(255,255,255,.1);color:#fff;font-size:14px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
 .eta svg{width:18px;height:18px;color:var(--moss-2)}
-.eta.done{background:rgba(92,156,124,.22);box-shadow:inset 0 0 0 1px rgba(141,187,162,.5);cursor:default}
+.eta.done{background:rgba(92,156,124,.22);box-shadow:inset 0 0 0 1px rgba(141,187,162,.5);cursor:pointer}
+.eta-live{display:block;margin-top:8px;font-size:12.5px;color:var(--on-dark-muted)}
 .eta b{font-weight:600}
 .eta-alt{display:grid;gap:8px;margin-top:12px;font-size:14px;color:var(--on-dark-muted)}
 .eta-alt select{background-color:rgba(255,255,255,.1);color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E");max-width:100%}
@@ -1430,7 +1431,7 @@ html[lang="es"] .mbar .btn.line:not(.call){flex:.75}
         <div><span class="label">Email</span><span><a href="mailto:info@crestwoodlake.com?subject=Apartment%20inquiry">info@crestwoodlake.com</a><button class="copy" type="button" data-copy="info@crestwoodlake.com">Copy</button></span></div>
         <div><span class="label">Hours</span><span>Monday to Friday, 9am to 5pm<br>Saturdays by appointment</span></div>
         <div><span class="label">Address</span><span>90 Beaumont Circle, Yonkers, NY 10710
-          <span class="dir-row"><a class="dir" href="https://www.google.com/maps/dir/?api=1&destination=90+Beaumont+Circle%2C+Yonkers%2C+NY+10710" target="_blank" rel="noopener">Get directions <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12L12 4M6 4h6v6"/></svg></a><button class="eta" type="button" id="etaBtn"><span class="eta-road" aria-hidden="true"></span><span class="eta-car" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg><i></i><i></i><i></i></span><span id="etaTxt">Drive time from you</span></button></span>
+          <span class="dir-row"><a class="dir" href="https://www.google.com/maps/dir/?api=1&destination=90+Beaumont+Circle%2C+Yonkers%2C+NY+10710" target="_blank" rel="noopener">Get directions <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12L12 4M6 4h6v6"/></svg></a><button class="eta" type="button" id="etaBtn"><span class="eta-road" aria-hidden="true"></span><span class="eta-car" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg><i></i><i></i><i></i></span><span id="etaTxt">Drive time from you</span></button></span><span class="eta-live" id="etaLive" hidden>Estimate without traffic. Tap it to see live traffic in Google Maps.</span>
           <span class="eta-alt" id="etaAlt" hidden><span id="etaMsg">Location is off. Pick where you are coming from:</span><select id="etaFrom" aria-label="Starting point"></select><output id="etaOut"></output><span class="eta-note">Typical drive time without traffic.</span></span>
         </span></div>
         <div><span class="label">Social</span><span><a href="https://www.instagram.com/crestwoodlake/" target="_blank" rel="noopener">Instagram</a> &nbsp; <a href="https://www.facebook.com/crestwoodlakeapartments/" target="_blank" rel="noopener">Facebook</a></span></div>
@@ -1873,7 +1874,7 @@ $('#faqList').innerHTML=FAQ.map((f,i)=>`<details class="q" ${i?'':'open'}><summa
   function hav(a,b){const R=3958.8,t=Math.PI/180,dl=(b[0]-a[0])*t,dn=(b[1]-a[1])*t;const x=Math.sin(dl/2)**2+Math.cos(a[0]*t)*Math.cos(b[0]*t)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x))}
   function done(min,mi){settle(()=>{btn.classList.add('done','arrive');btn.disabled=false;txt.innerHTML=`<b>About <span class="n">0</span> min</b> from you, ${mi} mi`;alt.hidden=true;
     const n=txt.querySelector('.n'),s=performance.now(),D=RM?1:900;(function tick(t){const k=Math.min(1,(t-s)/D);n.textContent=Math.round(min*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(tick)})(s);
-    setTimeout(()=>btn.classList.remove('arrive'),1200)})}
+    setTimeout(()=>btn.classList.remove('arrive'),1200);$('#etaLive').hidden=false})}
   function locate(){if(!('geolocation' in navigator))return fallback('Location is not available on this device. Pick where you are coming from:');
     t0=performance.now();btn.classList.add('go');btn.disabled=true;txt.textContent='Finding your location';
     navigator.geolocation.getCurrentPosition(async pos=>{const me=[pos.coords.latitude,pos.coords.longitude];
@@ -1881,7 +1882,7 @@ $('#faqList').innerHTML=FAQ.map((f,i)=>`<details class="q" ${i?'':'open'}><summa
       catch(e){const mi=hav(me,DEST)*1.3;done(Math.max(1,Math.round(mi/28*60)),mi.toFixed(1))}
     },()=>fallback('Location is off. Pick where you are coming from:'),{enableHighAccuracy:false,timeout:9000,maximumAge:600000})}
   btn.addEventListener('pointerdown',e=>{if(btn.classList.contains('done')||btn.disabled||RM)return;const r=btn.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.4,d=document.createElement('span');d.className='rip';d.style.cssText=`left:${e.clientX-r.left}px;top:${e.clientY-r.top}px;width:${s}px;height:${s}px`;btn.appendChild(d);setTimeout(()=>d.remove(),750)});
-  btn.addEventListener('click',()=>{if(!btn.classList.contains('done')&&!btn.classList.contains('go'))locate()});
+  btn.addEventListener('click',()=>{if(btn.classList.contains('done')){window.open($('.dir').href,'_blank','noopener');return}if(!btn.classList.contains('go'))locate()});
   try{navigator.permissions&&navigator.permissions.query({name:'geolocation'}).then(s=>{if(s.state==='granted')locate()}).catch(()=>{})}catch(e){}
 })();
 
@@ -2431,7 +2432,7 @@ const ES={
 "Interactive 3D model of the apartment":"Modelo 3D interactivo del apartamento","Call the leasing office":"Llamar a la oficina de alquiler",
 "Living and dining":"Sala y comedor","Foyer":"Recibidor","Dining":"Comedor","Kitchen":"Cocina","Primary suite":"Suite principal","Primary bedroom":"Dormitorio principal","Bedroom 1":"Dormitorio 1","Bedroom 2":"Dormitorio 2","Bedroom 3":"Dormitorio 3","Bath":"Baño","Half bath":"Medio baño",
 "Walk in closet, Separate dining":"Vestidor, comedor separado","1.5 baths, Walk in closet, Separate dining":"1.5 baños, vestidor, comedor separado",
-"today at 9am":"hoy a las 9am","About":"Unos","tomorrow at 9am":"mañana a las 9am",
+"today at 9am":"hoy a las 9am","Estimate without traffic. Tap it to see live traffic in Google Maps.":"Estimado sin tráfico. Tóquelo para ver el tráfico en vivo en Google Maps.","About":"Unos","tomorrow at 9am":"mañana a las 9am",
 "Crestwood Lake Apartments, Yonkers NY":"Crestwood Lake Apartments, Yonkers NY"
 };
 const MONTHS={January:'enero',February:'febrero',March:'marzo',April:'abril',May:'mayo',June:'junio',July:'julio',August:'agosto',September:'septiembre',October:'octubre',November:'noviembre',December:'diciembre'};
