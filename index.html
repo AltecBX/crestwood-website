@@ -998,6 +998,95 @@ html[lang="es"] .mbar .btn.line:not(.call){flex:.75}
 @keyframes etaGlow{0%{box-shadow:inset 0 0 0 1px rgba(141,187,162,.5),0 0 0 0 rgba(141,187,162,.55)}100%{box-shadow:inset 0 0 0 1px rgba(141,187,162,.5),0 0 0 16px rgba(141,187,162,0)}}
 .eta.done b .n{display:inline-block;min-width:1ch;color:#fff}
 @media (prefers-reduced-motion:reduce){.eta.go,.eta.go .eta-road,.eta.go .eta-car,.eta.go .eta-car i,.eta.arrive,.eta.arrive .eta-car{animation:none}}
+/* available homes on the map */
+.map-vp{position:relative;overflow:hidden}
+.map-in{position:relative;transform-origin:0 0;transition:transform 1.15s cubic-bezier(.22,1,.36,1);--iz:1;will-change:transform}
+.map-in .pin{transform:translate(-50%,-50%) scale(var(--iz))}
+.map-in .pin.on{transform:translate(-50%,-50%) scale(calc(1.3*var(--iz)))}
+.map.homes .pin{opacity:0;pointer-events:none}
+.walk{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.walk .wk,.walk .wk-halo{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.walk .wk-halo{stroke:rgba(255,255,255,.85);stroke-width:9}
+.walk .wk{stroke-width:4.5;stroke-dasharray:.5 10;animation:walkdash 1.1s linear infinite}
+.walk .wk-lake{stroke:#2F7FB6}.walk .wk-laundry{stroke:#E07A2E}
+@keyframes walkdash{to{stroke-dashoffset:-10.5}}
+.hm-layer{position:absolute;inset:0;pointer-events:none}
+.hm{position:absolute;pointer-events:auto;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:0;padding:0;background:#1F8A5B;color:#fff;display:grid;place-items:center;cursor:pointer;transform:scale(var(--iz));box-shadow:0 0 0 3px #fff,0 10px 22px -8px rgba(0,0,0,.55);transition:opacity .4s,filter .4s,background .3s}
+.hm svg{width:17px;height:17px}
+.hm::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid #1F8A5B;animation:hmring 2.2s cubic-bezier(.22,1,.36,1) infinite;pointer-events:none}
+@keyframes hmring{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.3);opacity:0}}
+.hm .c{position:absolute;top:-7px;right:-7px;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:var(--sun);color:#2A1604;font:700 11px/19px var(--body);box-shadow:0 0 0 2px #fff}
+.hm.on{background:var(--sun);color:#2A1604;z-index:4}
+.hm.on::before{border-color:var(--sun)}
+.hm.dim{opacity:.35;filter:saturate(.4)}
+.map:not(.homes) .hm-layer{display:none}
+.wend{position:absolute;transform:translate(-50%,-50%) scale(var(--iz));display:flex;align-items:center;gap:6px;pointer-events:none;opacity:0;animation:wendIn .6s cubic-bezier(.22,1,.36,1) var(--dl) forwards}
+.wend i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 0 0 3px #fff,0 8px 18px -6px rgba(0,0,0,.5);flex:none}
+.wend i svg{width:16px;height:16px}
+.wend-lake i{background:#2F7FB6}.wend-laundry i{background:#E07A2E}
+.wend span{background:rgba(249,250,246,.96);color:var(--ink);font:600 12.5px/1 var(--body);padding:7px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 8px 20px -10px rgba(0,0,0,.5)}
+@keyframes wendIn{from{opacity:0;transform:translate(-50%,-50%) scale(calc(.4*var(--iz)))}to{opacity:1;transform:translate(-50%,-50%) scale(var(--iz))}}
+.hm-card{position:absolute;right:18px;top:18px;z-index:5;width:min(370px,calc(100% - 36px));max-height:calc(100% - 36px);overflow:auto;background:rgba(249,250,246,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:22px;padding:20px;box-shadow:0 30px 60px -30px rgba(0,0,0,.55)}
+.hm-card .label{display:flex;align-items:center;gap:8px;font-size:10.5px;color:#1F8A5B}
+.hm-card .live{width:8px;height:8px;border-radius:50%;background:#1F8A5B;box-shadow:0 0 0 0 rgba(31,138,91,.5);animation:livep 1.8s infinite}
+@keyframes livep{70%{box-shadow:0 0 0 8px rgba(31,138,91,0)}100%{box-shadow:0 0 0 0 rgba(31,138,91,0)}}
+.hm-card h3{font-size:24px;letter-spacing:-.02em;line-height:1.08;margin:8px 34px 6px 0}
+.hm-card p{font-size:14px;color:var(--muted);line-height:1.45}
+.hm-card .x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:0;background:var(--mist);display:grid;place-items:center;cursor:pointer}
+.hm-card .x svg{width:13px;height:13px}
+.hm-units{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.hm-units li{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:11px 12px;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 1px var(--line-2)}
+.hm-units li.hl{box-shadow:inset 0 0 0 2px var(--sun)}
+.hm-units b{font-size:14.5px;display:block}
+.hm-units small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.hm-units .r{text-align:right}
+.hm-units small.now{color:#2B6E50;font-weight:600}
+.hm-units button{border:0;background:var(--ink);color:#fff;border-radius:999px;padding:8px 12px;font:600 12.5px/1 var(--body);cursor:pointer}
+.hm-walk{display:grid;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.hm-walk span{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-2)}
+.hm-walk i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:none}
+.hm-walk i svg{width:14px;height:14px}
+.hm-walk span:first-child i{background:#E07A2E}.hm-walk span:last-child i{background:#2F7FB6}
+.chip-home{--c:#1F8A5B}
+.chip-home i{background:#1F8A5B!important;animation:livep 1.8s infinite}
+.chip-home b{margin-left:6px;min-width:22px;height:20px;padding:0 6px;border-radius:999px;background:#1F8A5B;color:#fff;font:700 11.5px/20px var(--body);display:inline-block;text-align:center}
+.chip-home[aria-pressed="true"]{background:#1F8A5B!important;color:#fff!important;border-color:#1F8A5B!important}
+.chip-home[aria-pressed="true"] b{background:#fff;color:#1F8A5B}
+.chip-home[aria-pressed="true"] i{background:#fff!important}
+.units .mapb{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line);padding:7px 9px;margin-right:6px;display:inline-grid;place-items:center;vertical-align:middle}
+.units .mapb svg{width:14px;height:14px}
+@media (max-width:560px){
+  .hm-card{position:relative;right:auto;top:auto;width:auto;max-height:none;margin:10px;padding:18px}
+  .hm{width:28px;height:28px;margin:-14px 0 0 -14px}
+  .hm svg{width:14px;height:14px}
+  .wend span{font-size:11px;padding:6px 8px}
+  .wend i{width:24px;height:24px}
+  .hm-units li{grid-template-columns:1fr auto;gap:8px 12px}
+  .hm-units li button{grid-column:1/-1;justify-self:start}
+}
+@media (prefers-reduced-motion:reduce){.map-in{transition:none}.hm::before,.walk .wk,.chip-home i,.hm-card .live{animation:none}}
+/* live weather in the hero */
+.hero .wrap{position:relative;z-index:1}
+.wxfx{position:absolute;inset:0;z-index:0;pointer-events:none}
+.wxtint{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity 2s ease,background 2s ease}
+.hero[data-wx="rain"] .wxtint,.hero[data-wx="drizzle"] .wxtint{opacity:1;background:linear-gradient(180deg,rgba(38,58,74,.42),rgba(30,46,58,.22))}
+.hero[data-wx="storm"] .wxtint{opacity:1;background:linear-gradient(180deg,rgba(18,26,38,.6),rgba(24,34,44,.3))}
+.hero[data-wx="snow"] .wxtint{opacity:1;background:linear-gradient(180deg,rgba(200,215,230,.26),rgba(160,180,200,.12))}
+.hero[data-wx="fog"] .wxtint{opacity:1;background:linear-gradient(180deg,rgba(220,228,232,.36),rgba(200,210,215,.18))}
+.hero[data-wx="cloudy"] .wxtint{opacity:1;background:linear-gradient(180deg,rgba(60,72,80,.3),rgba(60,72,80,.08))}
+.hero[data-wx="golden"] .wxtint{opacity:1;background:linear-gradient(200deg,rgba(255,150,70,.34),rgba(255,120,60,.08) 55%,rgba(40,20,60,.2))}
+.hero[data-wx="night"] .wxtint{opacity:1;background:linear-gradient(180deg,rgba(8,16,40,.55),rgba(10,20,40,.2))}
+.hero[data-wx="sun"] .wxtint{opacity:1;background:linear-gradient(200deg,rgba(255,225,160,.18),transparent 60%)}
+.wxflash{position:absolute;inset:0;z-index:0;pointer-events:none;background:rgba(230,238,255,.0)}
+.wxflash.go{animation:bolt 1.1s ease-out}
+@keyframes bolt{0%{background:rgba(230,238,255,0)}6%{background:rgba(230,238,255,.55)}11%{background:rgba(230,238,255,.05)}17%{background:rgba(230,238,255,.4)}40%,100%{background:rgba(230,238,255,0)}}
+.wx-chip{display:inline-flex;align-items:center;gap:9px;margin:10px 0 0;padding:8px 14px 8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(8,20,24,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font:500 13px/1.2 var(--body);cursor:pointer;animation:fadeup .8s var(--ease) both}
+.wx-chip i{width:8px;height:8px;border-radius:50%;background:#7FD1A8;box-shadow:0 0 0 0 rgba(127,209,168,.6);animation:livep2 1.8s infinite;flex:none}
+@keyframes livep2{70%{box-shadow:0 0 0 8px rgba(127,209,168,0)}100%{box-shadow:0 0 0 0 rgba(127,209,168,0)}}
+.eyebrow-wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.eyebrow-wrap .wx-chip{margin:0}
+@media (prefers-reduced-motion:reduce){.wx-chip i{animation:none}.wxflash.go{animation:none}}
+.wend.flip{flex-direction:row-reverse}
 </style>
 
 <div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
@@ -1052,7 +1141,7 @@ html[lang="es"] .mbar .btn.line:not(.call){flex:.75}
   <div class="media"><img src="img/hero.webp" alt="Aerial view of Crestwood Lake at dusk, with brick garden apartment buildings surrounding the lake" fetchpriority="high"></div>
   <div class="wrap">
     <div>
-      <div class="eyebrow-live"><span class="dot" id="liveDot"></span><span id="liveText">Leasing office open Monday to Friday, 9am to 5pm</span></div>
+      <div class="eyebrow-wrap"><div class="eyebrow-live"><span class="dot" id="liveDot"></span><span id="liveText">Leasing office open Monday to Friday, 9am to 5pm</span></div><button class="wx-chip" id="wxChip" type="button" hidden><i></i><span></span></button></div>
       <h1 id="heroTitle">
         <span class="ln"><span>60 acres.</span></span>
         <span class="ln"><span>A private <span class="serif">lake.</span></span></span>
@@ -1147,7 +1236,7 @@ html[lang="es"] .mbar .btn.line:not(.call){flex:.75}
             <div class="pb"><span class="label" id="poiCat"></span><h3 id="poiName"></h3><p id="poiText"></p></div>
           </div>
         </div>
-        <p class="map-note">Building numbers and locations follow the official Crestwood Lake site plan.</p>
+        <p class="map-note">Building numbers and locations follow the official Crestwood Lake site plan. Walk times are approximate.</p>
       </div>
     </div>
   </div>
@@ -1656,7 +1745,7 @@ function setUnits(rows,live,at){UNITS=rows.map(r=>({name:r[0],sf:r[1],beds:r[2],
   const bar=$('#liveBar');bar.classList.toggle('snap',!live);
   const t=new Date(at);const hm=t.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}).replace(' ','').toLowerCase();
   $('#lbWhen').textContent=live?`Live from the leasing office, updated ${hm}`:`From the leasing office, last updated ${t.toLocaleDateString('en-US',{month:'short',day:'numeric'})}, ${hm}`;
-  renderGrid();if(dlg.open&&curPlan)renderDlgUnits(curPlan);
+  renderGrid();if(dlg.open&&curPlan)renderDlgUnits(curPlan);if(typeof paintHomes==='function')paintHomes();
 }
 const today0=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
 function availTxt(u){return u.date<=today0()?'Available now':'Available '+u.date.toLocaleDateString('en-US',{month:'short',day:'numeric'})}
@@ -1677,11 +1766,11 @@ async function loadUnits(){
 $('#moveBy').addEventListener('change',e=>{state.moveBy=e.target.value;renderGrid()});
 $('#availOnly').addEventListener('click',e=>{state.availOnly=!state.availOnly;e.currentTarget.setAttribute('aria-pressed',state.availOnly);e.currentTarget.style.background=state.availOnly?'#fff':'rgba(255,255,255,.12)';e.currentTarget.style.color=state.availOnly?'var(--ink)':'#fff';renderGrid()});
 function renderDlgUnits(p){const us=unitsFor(p);
-  $('#dlgUnits').innerHTML=us.length?`<table class="units"><thead><tr><th>Unit</th><th>Move in</th><th>Rent</th><th></th></tr></thead><tbody>${us.map(u=>`<tr><td>${u.name}</td><td class="${u.date<=today0()?'now':''}">${availTxt(u).replace('Available ','').replace('now','Now')}</td><td class="num">${money(u.price)}</td><td><button type="button" data-unit="${u.name}">Tour</button></td></tr>`).join('')}</tbody></table>${p.id===3||p.id===4?'<p class="fine" style="margin-top:8px">731 sq ft units can be Plan 03 or Plan 04. The leasing office will confirm the layout.</p>':''}`
+  $('#dlgUnits').innerHTML=us.length?`<table class="units"><thead><tr><th>Unit</th><th>Move in</th><th>Rent</th><th></th></tr></thead><tbody>${us.map(u=>`<tr><td>${u.name}</td><td class="${u.date<=today0()?'now':''}">${availTxt(u).replace('Available ','').replace('now','Now')}</td><td class="num">${money(u.price)}</td><td>${BLD[bcode(u.name)]?`<button type="button" class="mapb" data-mapunit="${u.name}" aria-label="Show ${u.name} on the map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></button>`:''}<button type="button" data-unit="${u.name}">Tour</button></td></tr>`).join('')}</tbody></table>${p.id===3||p.id===4?'<p class="fine" style="margin-top:8px">731 sq ft units can be Plan 03 or Plan 04. The leasing office will confirm the layout.</p>':''}`
    :`<div class="units-empty">No units open in this layout right now. Book a tour and the leasing office will add you to the waitlist.</div>`;
   const lo=us.length?Math.min(...us.map(u=>u.price)):null;
   $('#dlgPriceLbl').textContent=lo?'Available from':'Listed rent';$('#dlgPrice').textContent=lo?money(lo):`${money(p.lo)} to ${money(p.hi)}`}
-$('#dlgUnits').addEventListener('click',e=>{const b=e.target.closest('[data-unit]');if(!b)return;dlg.close();$('#fplan').value=curPlan.code;
+$('#dlgUnits').addEventListener('click',e=>{const mb=e.target.closest('[data-mapunit]');if(mb){dlg.close();window.CWmapUnit(mb.dataset.mapunit);return}const b=e.target.closest('[data-unit]');if(!b)return;dlg.close();$('#fplan').value=curPlan.code;
   const bv=curPlan.beds===1?'1 bedroom':curPlan.beds+' bedrooms';$$('#tBeds button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===bv));window.__tourUnit=b.dataset.unit;go('#tour')});
 
 /* ---------- floor plans ---------- */
@@ -1721,6 +1810,73 @@ function resetAll(){setBeds(0);setBudget(4100);state.feats.clear();state.moveBy=
 $('#resetBtn').addEventListener('click',resetAll);
 $('#grid').addEventListener('click',e=>{if(e.target.closest('[data-reset]'))return resetAll();const t3=e.target.closest('[data-3d]');if(t3)return open3d(+t3.dataset['3d']);const m=e.target.closest('[data-cmp]');if(m)return toggleCmp(+m.dataset.cmp,m);const c=e.target.closest('[data-open]');if(c)openPlan(+c.dataset.open)});
 renderGrid();
+/* ---------- available homes on the site plan ---------- */
+const BLD={'150-15B':[880,1199],'150-16B':[695,1033],'150-29B':[862,807],'150-61B':[311,711],'150-67B':[346,596],'150-6B':[865,1031],'150-9B':[952,1160],'150-7B':[941,1134],'150-56B':[585,845],'150-57B':[337,775],'150-72B':[742,628],'150-74B':[762,648],'150-86B':[828,650],'130-89S':[1568,666],'130-67S':[1459,352],'130-69S':[1466,380],'140-86S':[1323,672],'140-58S':[1033,765],'120-13N':[1278,152],'120-14N':[930,289],'120-31N':[1225,327],'110-6A':[545,560],'150-7R':[303,897],'150-214':[152,1095]};
+const LAUN=[[838,268],[1262,78],[893,450],[1013,443],[1353,647],[1020,729],[785,818],[1642,831],[438,1098],[1064,1182]];
+const LAKE=[[975,850],[1040,830],[1110,828],[1180,828],[1250,832],[1320,846],[1390,868],[1470,900],[1550,940],[1620,975],[1700,1010],[1790,1040],[1790,1200],[1760,1260],[1690,1290],[1600,1290],[1500,1275],[1420,1240],[1340,1195],[1260,1160],[1190,1120],[1135,1070],[1105,1000],[1080,940],[1030,895]];
+const STREET={B:'Beaumont Circle',S:'Shoreview Drive',N:'Nassau Road',A:'Andover Road',R:'Roxbury Drive East'};
+const MW=1800,MH=1404;
+const bcode=n=>n.split('-').slice(0,2).join('-');
+function bldAddr(code){const m=code.split('-')[1];if(/^\d{3}$/.test(m))return `2${m} Central Park Avenue`;const r=m.match(/^(\d+)([A-Z])$/);return r&&STREET[r[2]]?`${r[1]} ${STREET[r[2]]}`:''}
+const walkMin=d=>Math.max(1,Math.round(d*1.35/264));
+function nearest(pt,list){let b=null,bd=1e9;for(const q of list){const d=Math.hypot(q[0]-pt[0],q[1]-pt[1]);if(d<bd){bd=d;b=q}}return[b,bd]}
+function lakePoint(pt){let b=null,bd=1e9;for(let i=0;i<LAKE.length;i++){const a=LAKE[i],c=LAKE[(i+1)%LAKE.length];const vx=c[0]-a[0],vy=c[1]-a[1];const t=Math.max(0,Math.min(1,((pt[0]-a[0])*vx+(pt[1]-a[1])*vy)/(vx*vx+vy*vy)));const p=[a[0]+vx*t,a[1]+vy*t];const d=Math.hypot(p[0]-pt[0],p[1]-pt[1]);if(d<bd){bd=d;b=p}}return[b,bd]}
+const planOf=sf=>{const ids=SQFT2PLAN[sf]||[];return ids.length>1?`Plan ${String(ids[0]).padStart(2,'0')} or ${String(ids[1]).padStart(2,'0')}`:ids.length?`Plan ${String(ids[0]).padStart(2,'0')}`:''};
+const HOUSE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V19h12V9.5"/><path d="M10 19v-5h4v5"/></svg>';
+const WASH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6h2"/></svg>';
+const WAVE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 10c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>';
+/* build viewport layers */
+const mapVp=document.createElement('div');mapVp.className='map-vp';const mapIn=document.createElement('div');mapIn.className='map-in';mapVp.appendChild(mapIn);
+[...map.children].filter(c=>c.tagName==='IMG'||c.classList.contains('pin')).forEach(c=>mapIn.appendChild(c));
+map.insertBefore(mapVp,map.firstChild);
+mapIn.insertAdjacentHTML('beforeend',`<svg class="walk" id="walkSvg" viewBox="0 0 ${MW} ${MH}" preserveAspectRatio="none" aria-hidden="true"><defs></defs></svg><div class="hm-layer" id="hmLayer"></div>`);
+map.insertAdjacentHTML('beforeend',`<div class="hm-card" id="hmCard" hidden aria-live="polite"></div>`);
+const chipHome=document.createElement('button');chipHome.className='chip chip-home';chipHome.type='button';chipHome.id='chipHome';chipHome.setAttribute('aria-pressed','false');chipHome.innerHTML='<i></i><span>Available now</span><b id="chipHomeN"></b>';
+$('#mapChips').insertBefore(chipHome,$('#mapChips').children[1]||null);
+let homesOn=false,focusCode=null,zoomZ=1;
+function homeGroups(){const g={};(UNITS||[]).forEach(u=>{const c=bcode(u.name);if(!BLD[c])return;(g[c]=g[c]||[]).push(u)});return g}
+function paintHomes(){const g=homeGroups(),codes=Object.keys(g);const n=codes.reduce((a,c)=>a+g[c].length,0);
+  $('#chipHomeN').textContent=n?n:'';chipHome.hidden=!n;
+  $('#hmLayer').innerHTML=codes.map(c=>{const [x,y]=BLD[c];return `<button class="hm" type="button" data-b="${c}" style="left:${x/MW*100}%;top:${y/MH*100}%" aria-label="${bldAddr(c)||c}, ${g[c].length} available">${HOUSE}${g[c].length>1?`<span class="c">${g[c].length}</span>`:''}</button>`}).join('');
+  if(homesOn&&focusCode&&!g[focusCode])unfocus();else if(homesOn&&focusCode)focusB(focusCode,null,true);else if(homesOn)summary()}
+function setHomes(on){homesOn=on;map.classList.toggle('homes',on);chipHome.setAttribute('aria-pressed',on);
+  if(on){$$('#mapChips .chip').forEach(x=>{if(x!==chipHome)x.setAttribute('aria-pressed','false')});$$('.pin').forEach(p=>p.classList.add('dim'));
+    if(!reduce&&window.gsap)gsap.fromTo('#hmLayer .hm',{scale:0},{scale:1,duration:.6,ease:'back.out(2.2)',stagger:.04,clearProps:'scale'});summary()}
+  else{unfocus(true);$('#hmCard').hidden=true;$('#poiCard').hidden=false;$$('.pin').forEach(p=>p.classList.remove('dim'));const all=$('#mapChips .chip[data-c="all"]');all&&all.setAttribute('aria-pressed','true')}}
+function summary(){const g=homeGroups(),codes=Object.keys(g),n=codes.reduce((a,c)=>a+g[c].length,0);const card=$('#hmCard');$('#poiCard').hidden=true;card.hidden=false;
+  const extra=(UNITS||[]).length-n;card.innerHTML=`<span class="label"><i class="live"></i>Available now</span><h3>${n} apartment${n===1?'':'s'} open across ${codes.length} building${codes.length===1?'':'s'}.</h3><p>Tap a green marker to see the apartments inside and how far the lake and laundry are.</p>${extra>0?`<p class="fine" style="margin-top:8px;font-size:12.5px">${extra} more ${extra===1?'is':'are'} not on the map yet. Ask the leasing office.</p>`:''}`}
+function zoomTo(pts){const W=mapVp.clientWidth,H=mapVp.clientHeight;if(!pts){zoomZ=1;mapIn.style.transform='';mapIn.style.setProperty('--iz',1);return}
+  const xs=pts.map(p=>p[0]/MW*W),ys=pts.map(p=>p[1]/MH*H);const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const pr=W>=600?Math.min(400,W*.34):0,EW=W-pr;
+  const zmax=W<600?3:2.4;const z=Math.max(1.3,Math.min(zmax,.62*EW/Math.max(40,x1-x0),.66*H/Math.max(40,y1-y0)));
+  const cx=(x0+x1)/2,cy=(y0+y1)/2;const tx=Math.min(0,Math.max(W-W*z,EW/2-cx*z)),ty=Math.min(0,Math.max(H-H*z,H/2-cy*z));
+  zoomZ=z;mapIn.style.transform=`translate(${tx}px,${ty}px) scale(${z})`;mapIn.style.setProperty('--iz',1/z);zoomTo.last={tx,z,W,EW}}
+function drawWalks(b,targets){const svg=$('#walkSvg');let defs='',paths='';
+  targets.forEach((t,i)=>{const [p]=t;const dx=p[0]-b[0],dy=p[1]-b[1];const L=Math.hypot(dx,dy)||1;const k=Math.min(90,L*.22)*(i%2?-1:1);const cx=(b[0]+p[0])/2-dy/L*k,cy=(b[1]+p[1])/2+dx/L*k;const d=`M${b[0]},${b[1]} Q${cx},${cy} ${p[0]},${p[1]}`;
+    defs+=`<mask id="wm${i}" maskUnits="userSpaceOnUse" x="0" y="0" width="${MW}" height="${MH}"><path class="mk" d="${d}" stroke="#fff" stroke-width="70" fill="none" stroke-linecap="round"/></mask>`;
+    paths+=`<g mask="url(#wm${i})"><path class="wk-halo" d="${d}"/><path class="wk wk-${t[2]}" d="${d}"/></g>`});
+  svg.innerHTML=`<defs>${defs}</defs>${paths}`;
+  $$('#walkSvg .mk').forEach((m,i)=>{const L=m.getTotalLength();m.style.strokeDasharray=L;m.style.strokeDashoffset=reduce?0:L;m.getBoundingClientRect();m.style.transition=`stroke-dashoffset ${reduce?0:1.3}s cubic-bezier(.22,1,.36,1) ${.35+i*.35}s`;m.style.strokeDashoffset=0});
+  $$('#hmLayer .wend').forEach(e=>e.remove());
+  targets.forEach((t,i)=>{const [p,dist,kind]=t;const e=document.createElement('div');e.className='wend wend-'+kind;e.style.left=p[0]/MW*100+'%';e.style.top=p[1]/MH*100+'%';e.style.setProperty('--dl',(1.1+i*.35)+'s');e.innerHTML=`<i>${kind==='lake'?WAVE:WASH}</i><span>${kind==='lake'?'Lake':'Laundry'}, about ${walkMin(dist)} min walk</span>`;$('#hmLayer').appendChild(e)})}
+function focusB(code,unit,quiet){const g=homeGroups();const us=g[code];if(!us)return;focusCode=code;const b=BLD[code];
+  $$('#hmLayer .hm').forEach(x=>{x.classList.toggle('on',x.dataset.b===code);x.classList.toggle('dim',x.dataset.b!==code)});
+  const [lp,ld]=nearest(b,LAUN),[kp,kd]=lakePoint(b);const T=[[lp,ld,'laundry'],[kp,kd,'lake']];
+  if(!quiet){zoomTo([b,lp,kp]);drawWalks(b,T);const L=zoomTo.last;$$('#hmLayer .wend').forEach((e,i)=>{const sx=L.tx+T[i][0][0]/MW*L.W*L.z;e.classList.toggle('flip',sx>L.EW*.55)})}
+  const addr=bldAddr(code);const card=$('#hmCard');$('#poiCard').hidden=true;card.hidden=false;
+  card.innerHTML=`<button class="x" type="button" id="hmClose" aria-label="Close">${'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l10 10M13 3L3 13"/></svg>'}</button><span class="label"><i class="live"></i>Available now</span><h3>${addr||('Building '+code)}</h3>
+    <ul class="hm-units">${us.map(u=>`<li class="${u.name===unit?'hl':''}"><div><b>Apt ${u.name}</b><small>${planOf(u.sf)}, ${u.sf} sq ft</small></div><div class="r"><b class="num">${money(u.price)}</b><small class="${u.date<=today0()?'now':''}">${u.date<=today0()?'Now':availTxt(u).replace('Available ','')}</small></div><button type="button" data-hm-tour="${u.name}">Tour</button></li>`).join('')}</ul>
+    <div class="hm-walk"><span><i>${WASH}</i>Laundry, about ${walkMin(ld)} min walk</span><span><i>${WAVE}</i>Lake, about ${walkMin(kd)} min walk</span></div>`;
+  if(!reduce&&!quiet&&window.gsap)gsap.from('#hmCard > *',{y:14,opacity:0,duration:.6,ease:'expo.out',stagger:.05,clearProps:'all'})}
+function unfocus(silent){focusCode=null;zoomTo(null);$('#walkSvg').innerHTML='<defs></defs>';$$('#hmLayer .wend').forEach(e=>e.remove());$$('#hmLayer .hm').forEach(x=>x.classList.remove('on','dim'));if(!silent&&homesOn)summary()}
+chipHome.addEventListener('click',e=>{e.stopPropagation();setHomes(!homesOn)});
+$('#mapChips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b&&b!==chipHome&&homesOn)setHomes(false)},true);
+$('#hmLayer').addEventListener('click',e=>{const b=e.target.closest('.hm');if(b){e.stopPropagation();focusCode===b.dataset.b?unfocus():focusB(b.dataset.b)}});
+map.addEventListener('click',e=>{if(e.target.closest('#hmClose')){unfocus();return}
+  const t=e.target.closest('[data-hm-tour]');if(t){const u=UNITS.find(x=>x.name===t.dataset.hmTour);const ids=SQFT2PLAN[u.sf]||[];const p=PLANS.find(x=>x.id===ids[0]);if(p){$('#fplan').value=p.code;const bv=p.beds===1?'1 bedroom':p.beds+' bedrooms';$$('#tBeds button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===bv))}window.__tourUnit=u.name;go('#tour')}});
+addEventListener('resize',()=>{if(homesOn&&focusCode){const b=BLD[focusCode];zoomTo([b,nearest(b,LAUN)[0],lakePoint(b)[0]])}});
+window.CWmapUnit=name=>{const c=bcode(name);if(!BLD[c])return false;go('#siteplan');setTimeout(()=>{if(!homesOn)setHomes(true);focusB(c,name)},reduce?50:950);return true};
+
 loadUnits();
 
 /* hero finder */
@@ -1850,7 +2006,8 @@ $('#faqList').innerHTML=FAQ.map((f,i)=>`<details class="q" ${i?'':'open'}><summa
     $('#wxIc').innerHTML=ic[k];$('#wxIc2').innerHTML=ic[k];$('#wxT').textContent=Math.round(w.t)+'°';$('#wxT2').textContent=Math.round(w.t)+'°F';
     $('#wxL').textContent=l;$('#wxL2').textContent=l;$('#wxHL').textContent=`${Math.round(w.lo)}° to ${Math.round(w.hi)}°`;$('#wxSS').textContent=t12(w.ss);
     const d=new Date(w.at);$('#wxAt').textContent=(live?'Live forecast, updated ':'Last updated ')+(live?t12(w.at):new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric'}).format(d)+', '+t12(w.at));
-    $('#wx').setAttribute('aria-label',`Weather at Crestwood Lake: ${Math.round(w.t)} degrees, ${l}`);$('#wxw').hidden=false}
+    $('#wx').setAttribute('aria-label',`Weather at Crestwood Lake: ${Math.round(w.t)} degrees, ${l}`);$('#wxw').hidden=false;
+    if(live){window.CWweather=w;document.dispatchEvent(new CustomEvent('cw:weather',{detail:w}))}}
   async function load(){try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min,sunset&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=1`);
       if(!r.ok)throw 0;const j=await r.json();paint({t:j.current.temperature_2m,c:j.current.weather_code,d:j.current.is_day,hi:j.daily.temperature_2m_max[0],lo:j.daily.temperature_2m_min[0],ss:j.daily.sunset[0],at:j.current.time},true)}
     catch(e){paint(SNAP,false)}}
@@ -2249,6 +2406,54 @@ window.CWTour={open,close,prefetch:()=>{if(glOK())need().catch(()=>{})}};
 </script>
 <script>
 (()=>{
+const hero=document.querySelector('.hero');if(!hero)return;
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cv=document.createElement('canvas');cv.className='wxfx';cv.setAttribute('aria-hidden','true');hero.insertBefore(cv,hero.querySelector('.wrap'));
+const tint=document.createElement('div');tint.className='wxtint';tint.setAttribute('aria-hidden','true');hero.insertBefore(tint,cv);
+const flash=document.createElement('div');flash.className='wxflash';flash.setAttribute('aria-hidden','true');hero.insertBefore(flash,cv.nextSibling);
+const ctx=cv.getContext('2d');let W=0,H=0,DPR=1,parts=[],mode='',raf=0,vis=true,last=0,t0=performance.now(),boltT=0,sunset=null;
+function size(){DPR=Math.min(devicePixelRatio||1,1.5);W=hero.clientWidth;H=hero.clientHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';ctx.setTransform(DPR,0,0,DPR,0,0);seed()}
+const R=(a,b)=>a+Math.random()*(b-a);
+function seed(){parts=[];const area=W*H/(1440*900);
+  if(mode==='rain'||mode==='drizzle'||mode==='storm'){const n=Math.round((mode==='drizzle'?140:mode==='storm'?420:300)*Math.max(.35,area));for(let i=0;i<n;i++){const z=R(.35,1);parts.push({x:R(-W*.2,W),y:R(-H*.15,H),z,l:R(14,34)*z*(mode==='drizzle'?.6:1),v:R(900,1400)*z*(mode==='drizzle'?.55:1)})}}
+  else if(mode==='snow'){const n=Math.round(230*Math.max(.45,area));for(let i=0;i<n;i++){const z=R(.3,1);parts.push({x:R(0,W),y:R(-H*.1,H),z,r:R(1.4,4.2)*z,v:R(28,70)*z,ph:R(0,6.28),sw:R(12,34)})}}
+  else if(mode==='night'){const n=Math.round(140*Math.max(.4,area));for(let i=0;i<n;i++)parts.push({x:R(0,W),y:R(0,H*.55)*Math.pow(Math.random(),.6),r:R(.4,1.5),ph:R(0,6.28),sp:R(.6,2.2)})}
+  else if(mode==='fog'||mode==='cloudy'){const n=mode==='fog'?7:5;for(let i=0;i<n;i++)parts.push({x:R(-.3,1.1)*W,y:mode==='fog'?R(.25,.95)*H:R(.05,.55)*H,r:R(.35,.7)*Math.max(W,H),v:R(8,22)*(Math.random()<.5?-1:1),a:mode==='fog'?R(.16,.3):R(.1,.2)})}}
+function draw(t){const dt=Math.min(.05,(t-last)/1000||0);last=t;ctx.clearRect(0,0,W,H);const s=(t-t0)/1000;
+  if(mode==='rain'||mode==='drizzle'||mode==='storm'){const ang=mode==='storm'?.32:.18;ctx.lineCap='round';
+    for(const p of parts){p.y+=p.v*dt;p.x+=p.v*dt*ang;if(p.y>H+30){p.y=R(-60,-10);p.x=R(-W*.2,W)}
+      ctx.strokeStyle=`rgba(215,230,242,${.28+.45*p.z})`;ctx.lineWidth=p.z*1.4;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.l*ang,p.y-p.l);ctx.stroke();
+      if(p.y>H*.86&&Math.random()<.004*p.z){ctx.strokeStyle='rgba(220,235,245,.35)';ctx.lineWidth=1;ctx.beginPath();ctx.ellipse(p.x,H*R(.9,.99),R(4,9),R(1.2,2.4),0,0,6.28);ctx.stroke()}}
+    if(mode==='storm'&&s>boltT){boltT=s+R(6,13);flash.classList.remove('go');void flash.offsetWidth;flash.classList.add('go')}}
+  else if(mode==='snow'){ctx.fillStyle='rgba(255,255,255,.9)';for(const p of parts){p.y+=p.v*dt;p.ph+=dt*.9;const x=p.x+Math.sin(p.ph)*p.sw;if(p.y>H+10){p.y=-10;p.x=R(0,W)}
+      ctx.globalAlpha=.35+.6*p.z;ctx.beginPath();ctx.arc(x,p.y,p.r,0,6.28);ctx.fill()}ctx.globalAlpha=1}
+  else if(mode==='night'){for(const p of parts){const a=.35+.45*Math.sin(s*p.sp+p.ph);ctx.fillStyle=`rgba(255,255,240,${Math.max(.08,a)})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fill()}
+    if(Math.floor(s)%11===0&&!parts.shoot){parts.shoot={x:R(.2,.8)*W,y:R(.05,.25)*H,t:0}}if(parts.shoot){const sh=parts.shoot;sh.t+=dt;const k=sh.t/.8;if(k>1){if(Math.floor(s)%11!==0)parts.shoot=null}else{const x=sh.x+k*180,y=sh.y+k*70;const g=ctx.createLinearGradient(x,y,x-90,y-35);g.addColorStop(0,`rgba(255,255,255,${.9*(1-k)})`);g.addColorStop(1,'rgba(255,255,255,0)');ctx.strokeStyle=g;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-90,y-35);ctx.stroke()}}}
+  else if(mode==='fog'||mode==='cloudy'){for(const p of parts){p.x+=p.v*dt;if(p.x>W+p.r)p.x=-p.r;if(p.x<-p.r)p.x=W+p.r;const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);const c=mode==='fog'?'235,240,242':'20,30,36';g.addColorStop(0,`rgba(${c},${p.a})`);g.addColorStop(1,`rgba(${c},0)`);ctx.fillStyle=g;ctx.fillRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2)}}
+  else if(mode==='sun'||mode==='golden'){const gx=W*.82,gy=H*.12,r=Math.max(W,H)*(mode==='golden'?.75:.55);const pul=.85+.15*Math.sin(s*.7);const g=ctx.createRadialGradient(gx,gy,0,gx,gy,r);
+    const c=mode==='golden'?'255,170,90':'255,236,190';g.addColorStop(0,`rgba(${c},${.34*pul})`);g.addColorStop(.35,`rgba(${c},${.12*pul})`);g.addColorStop(1,`rgba(${c},0)`);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.save();ctx.translate(gx,gy);ctx.rotate(s*.02);for(let i=0;i<7;i++){ctx.rotate(Math.PI*2/7);const rg=ctx.createLinearGradient(0,0,r*.9,0);rg.addColorStop(0,`rgba(${c},${.07*pul})`);rg.addColorStop(1,`rgba(${c},0)`);ctx.fillStyle=rg;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(r*.9,-r*.05);ctx.lineTo(r*.9,r*.05);ctx.closePath();ctx.fill()}ctx.restore()}
+  raf=vis&&!RM?requestAnimationFrame(draw):0}
+function run(){cancelAnimationFrame(raf);raf=0;if(!mode)return ctx.clearRect(0,0,W,H);last=performance.now();if(RM){draw(last);return}if(vis)raf=requestAnimationFrame(draw)}
+function pick(w){const c=w.c,d=w.d;const now=new Date();let golden=false;
+  if(w.ss){const ss=new Date(w.ss);const m=(ss-now)/60000;golden=d&&m>-10&&m<75}
+  if(c>=95)return'storm';if(c>=71&&c<=77||c===85||c===86)return'snow';if(c>=51&&c<=57)return'drizzle';if(c>=61&&c<=67||c>=80&&c<=82)return'rain';if(c===45||c===48)return'fog';
+  if(golden&&c<=2)return'golden';if(!d&&c<=2)return'night';if(c===3)return'cloudy';if(c<=1)return'sun';return c<=2?'sun':''}
+const LBL={rain:'Raining at the lake right now',drizzle:'Light rain at the lake right now',storm:'Thunderstorms at the lake right now',snow:'Snowing at the lake right now',fog:'Foggy at the lake right now',cloudy:'Cloudy at the lake right now',sun:'Sunny at the lake right now',golden:'Golden hour at the lake right now',night:'Clear night at the lake right now'};
+function set(m,w){if(m===mode)return;mode=m;hero.dataset.wx=m||'none';seed();run();
+  const chip=document.getElementById('wxChip');if(chip&&m){chip.hidden=false;chip.querySelector('span').textContent=LBL[m]+(w&&w.t!=null?`, ${Math.round(w.t)}°`:'')}}
+const q=new URLSearchParams(location.search).get('wx');
+document.addEventListener('cw:weather',e=>{if(q)return;set(pick(e.detail),e.detail)});
+if(q)setTimeout(()=>set(q==='clear'?'sun':q,null),50);
+const io=new IntersectionObserver(es=>{vis=es[0].isIntersecting&&!document.hidden;run()});io.observe(hero);
+document.addEventListener('visibilitychange',()=>{vis=!document.hidden;run()});
+addEventListener('resize',()=>{clearTimeout(size.t);size.t=setTimeout(size,150)});size();
+if(window.CWweather)set(pick(window.CWweather),window.CWweather);
+})();
+document.getElementById('wxChip')&&document.getElementById('wxChip').addEventListener('click',e=>{e.stopPropagation();const b=document.getElementById('wx');b&&b.click();b&&b.scrollIntoView&&0});
+</script>
+<script>
+(()=>{
 const ES={
 "Crestwood Lake home":"Inicio de Crestwood Lake","Main":"Principal",
 "Amenities":"Amenidades","Site plan":"Mapa","Floor plans":"Planos","Apply":"Solicitar","Reviews":"Reseñas","Commute":"Transporte","FAQ":"Preguntas",
@@ -2432,7 +2637,7 @@ const ES={
 "Interactive 3D model of the apartment":"Modelo 3D interactivo del apartamento","Call the leasing office":"Llamar a la oficina de alquiler",
 "Living and dining":"Sala y comedor","Foyer":"Recibidor","Dining":"Comedor","Kitchen":"Cocina","Primary suite":"Suite principal","Primary bedroom":"Dormitorio principal","Bedroom 1":"Dormitorio 1","Bedroom 2":"Dormitorio 2","Bedroom 3":"Dormitorio 3","Bath":"Baño","Half bath":"Medio baño",
 "Walk in closet, Separate dining":"Vestidor, comedor separado","1.5 baths, Walk in closet, Separate dining":"1.5 baños, vestidor, comedor separado",
-"today at 9am":"hoy a las 9am","Estimate without traffic. Tap it to see live traffic in Google Maps.":"Estimado sin tráfico. Tóquelo para ver el tráfico en vivo en Google Maps.","About":"Unos","tomorrow at 9am":"mañana a las 9am",
+"today at 9am":"hoy a las 9am","Building numbers and locations follow the official Crestwood Lake site plan. Walk times are approximate.":"Los números y ubicaciones de los edificios siguen el mapa oficial de Crestwood Lake. Los tiempos a pie son aproximados.","1 more is not on the map yet. Ask the leasing office.":"1 más aún no aparece en el mapa. Pregunte en la oficina de alquiler.","Tap a green marker to see the apartments inside and how far the lake and laundry are.":"Toque un marcador verde para ver los apartamentos y qué tan cerca están el lago y la lavandería.","No units open in this layout right now. Book a tour and the leasing office will add you to the waitlist.":"No hay apartamentos disponibles en esta distribución por ahora. Agende una visita y la oficina de alquiler lo anotará en la lista de espera.","Estimate without traffic. Tap it to see live traffic in Google Maps.":"Estimado sin tráfico. Tóquelo para ver el tráfico en vivo en Google Maps.","About":"Unos","tomorrow at 9am":"mañana a las 9am",
 "Crestwood Lake Apartments, Yonkers NY":"Crestwood Lake Apartments, Yonkers NY"
 };
 const MONTHS={January:'enero',February:'febrero',March:'marzo',April:'abril',May:'mayo',June:'junio',July:'julio',August:'agosto',September:'septiembre',October:'octubre',November:'noviembre',December:'diciembre'};
@@ -2441,6 +2646,14 @@ const DAYS={Monday:'lunes',Tuesday:'martes',Wednesday:'miércoles',Thursday:'jue
 const pl=(n,a,b)=>(+n===1?a:b);
 const bb=s=>s.replace(/(\d+) bedrooms?/,(m,n)=>`${n} ${pl(n,'dormitorio','dormitorios')}`).replace(/([\d.]+) baths?/,(m,n)=>`${n} ${pl(n,'baño','baños')}`);
 const RX=[
+[/^(\d+) apartments? open across (\d+) buildings?\.$/,(m,a,b)=>`${a} ${pl(a,'apartamento disponible','apartamentos disponibles')} en ${b} ${pl(b,'edificio','edificios')}.`],
+[/^(\d+) more are not on the map yet\. Ask the leasing office\.$/,(m,a)=>`${a} más aún no aparecen en el mapa. Pregunte en la oficina de alquiler.`],
+[/^Apt (.+)$/,(m,a)=>`Apto. ${a}`],
+[/^(Plan \d+)(?: or (\d+))?, ([\d,]+) sq ft$/,(m,p,o,s)=>`${p}${o?' o '+o:''}, ${s} pies²`],
+[/^(Laundry|Lake), about (\d+) min walk$/,(m,k,a)=>`${k==='Lake'?'Lago':'Lavandería'}, ${a==='1'?'a 1':'unos '+a} min a pie`],
+[/^Show (.+) on the map$/,(m,a)=>`Ver ${a} en el mapa`],
+[/^(.+), (\d+) available$/,(m,a,b)=>`${a}, ${b} ${pl(b,'disponible','disponibles')}`],
+[/^(Raining|Light rain|Thunderstorms|Snowing|Foggy|Cloudy|Sunny|Golden hour|Clear night) at the lake right now(, -?\d+°)?$/,(m,k,t)=>({'Raining':'Llueve en el lago ahora','Light rain':'Llovizna en el lago ahora','Thunderstorms':'Tormenta en el lago ahora','Snowing':'Nieva en el lago ahora','Foggy':'Hay niebla en el lago ahora','Cloudy':'Nublado en el lago ahora','Sunny':'Soleado en el lago ahora','Golden hour':'Hora dorada en el lago ahora','Clear night':'Noche despejada en el lago ahora'}[k])+(t||'')],
 [/^(\d+) apartments? available$/,(m,n)=>`${n} ${pl(n,'apartamento disponible','apartamentos disponibles')}`],
 [/^Live from the leasing office, updated (.+)$/,(m,t)=>`En vivo desde la oficina de alquiler, actualizado a las ${t}`],
 [/^From the leasing office, last updated (\w{3}) (\d+), (.+)$/,(m,mo,d,t)=>`Según la oficina de alquiler, actualizado el ${d} de ${MSHORT[mo]||mo}, ${t}`],
